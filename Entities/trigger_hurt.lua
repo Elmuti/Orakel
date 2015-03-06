@@ -11,7 +11,7 @@ local npcLib = Orakel.LoadModule("NpcLib")
 
 
 
-function IsPartInRegion(part, region)
+local function IsPartInRegion(part, region)
 	local list = workspace:FindPartsInRegion3WithIgnoreList(region, _G.ignorecommon)
 	for i = 1, #list do
 		if list[i] == part then
@@ -21,7 +21,7 @@ function IsPartInRegion(part, region)
 	return false
 end
 
-function IsHumanoidInRegion(region)
+local function IsHumanoidInRegion(region)
 	local list = workspace:FindPartsInRegion3WithIgnoreList(region, _G.ignorecommon)
 	for i = 1, #list do
 		if list[i].Name == "Torso" then
@@ -34,8 +34,20 @@ function IsHumanoidInRegion(region)
 	return nil
 end
 
+Entity.KeyValues = {
+  ["EntityName"] = "";
+  ["Interval"] = 1;
+  ["Radius"] = 0;
+  ["Enabled"] = true;
+  ["Damage"] = 1;
+  ["DamageType"] = "DROWN";
+}
 
-Entity.Runtime = function(trigger)
+
+Entity.Inputs = {}
+
+
+Entity.Update = function(trigger)
 	local Enabled = trigger.Enabled
 	local DamageType = trigger.DamageType
 	local Radius = trigger.Radius

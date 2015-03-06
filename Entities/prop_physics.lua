@@ -2,7 +2,16 @@ local Orakel = require(game.ReplicatedStorage.Orakel.Main)
 local Entity = {}
 Entity.Status = true
 
-Entity.Runtime = function(e)
+Entity.KeyValues = {
+  ["EntityName"] = "";
+}
+
+
+Entity.Inputs = {}
+
+
+
+Entity.Update = function(e)
 	if e:IsA("BasePart") then
 		e.Anchored = false
 	else

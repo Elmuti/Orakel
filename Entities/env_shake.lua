@@ -3,17 +3,25 @@ local Entity = {}
 Entity.Status = true
 local camLib = Orakel.LoadModule("CameraLib")
 
-Entity.Runtime = function(ent)
-	while wait(1/20) do
-		if ent.Enabled.Value then
-			local amp = ent.Amplitude.Value
-			local dur = ent.Duration.Value
-			local freq = ent.Frequency.Value
-			local cam = workspace.CurrentCamera
-			camLib.ShakeCamera(cam.CoordinateFrame, cam.Focus, freq, dur, true)
-			ent.Enabled = false
-		end
-	end
+
+Entity.KeyValues = {
+  ["EntityName"] = "";
+  ["Duration"] = 1;
+  ["Amplitude"] = 1;
+  ["Frequency"] = 0.1; --0.1 = Jitter, 5 = Earthquake
+  ["Radius"] = 20;
+}
+
+--TODO: Utilize Amplitude
+Entity.Inputs = {
+  ["StartShake"] = function(ent)
+    if ent.Enabled.Value then
+      camLib.ShakeCamera(cam.CoordinateFrame, cam.Focus, ent.Frequency.Value, ent.Duration.Value, true)
+    end
+  end;
+}
+
+Entity.Update = function(ent)
 end
 
 

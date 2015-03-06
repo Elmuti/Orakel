@@ -3,7 +3,24 @@ local Entity = {}
 Entity.Status = true
 local phys = Orakel.LoadModule("PhysLib")
 
-Entity.Runtime = function(e)
+
+Entity.KeyValues = {
+  ["EntityName"] = "";
+  ["FrontAttach"] = nil;
+  ["EndAttach"] = nil;
+  ["FrontOffset"] = nil;
+  ["EndOffset"] = nil;
+  ["EndAnchored"] = false;
+}
+
+Entity.Inputs = {
+  
+
+
+}
+
+
+Entity.Update = function(e)
 	local pos = e.Position
 	local len = e.Length
 	local fa = e.FrontAttach

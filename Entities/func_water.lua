@@ -2,7 +2,14 @@ local Orakel = require(game.ReplicatedStorage.Orakel.Main)
 local Entity = {}
 Entity.Status = true
 
-Entity.Runtime = function(part)
+
+Entity.KeyValues = {
+  ["EntityName"] = "";
+}
+
+
+
+Entity.Update = function(part)
 	part.Transparency = 1
 	part.CanCollide = false
 	local a,b,c,d =

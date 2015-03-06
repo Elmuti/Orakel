@@ -11,7 +11,7 @@ local sndLib = Orakel.LoadModule("SoundLib")
 local assetLib = Orakel.LoadModule("AssetLib")
 
 
-function IsPartInRegion(part, region)
+local function IsPartInRegion(part, region)
 	local list = workspace:FindPartsInRegion3WithIgnoreList(region, _G.ignorecommon)
 	for i = 1, #list do
 		if list[i] == part then
@@ -21,7 +21,7 @@ function IsPartInRegion(part, region)
 	return false
 end
 
-function IsHumanoidInRegion(region)
+local function IsHumanoidInRegion(region)
 	local list = workspace:FindPartsInRegion3WithIgnoreList(region, _G.ignorecommon)
 	for i = 1, #list do
 		if list[i].Name == "Torso" then
@@ -34,7 +34,26 @@ function IsHumanoidInRegion(region)
 	return nil
 end
 
-Entity.Runtime = function(trigger)
+
+
+Entity.KeyValues = {
+  ["EntityName"] = "";
+  ["Enabled"] = true;
+  ["OnceOnly"] = true;
+  ["StayInArea"] = false;
+  ["AreaTime"] = 5;
+  ["Script"] = "";
+  ["SoundTriggered"] = "";
+  ["TimesUsed"] = 0;
+}
+
+
+Entity.Inputs = {}
+
+
+
+
+Entity.Update = function(trigger)
 	local Success = true
 	local Enabled = trigger.Enabled
 	local StayInArea = trigger.StayInArea
@@ -74,16 +93,9 @@ Entity.Runtime = function(trigger)
 					
 					if Success then
 						print("Trigger activated")
-						local tgtEnt = trigger.TargetEntity.Value
-						if tgtEnt ~= "" then
-							tgtEnt = Orakel.FindEntity(tgtEnt)
-							if tgtEnt ~= nil then
-								tgtEnt.Enabled.Value = not tgtEnt.Enabled.Value
-							end
-						end
 						Orakel.RunScript(Script.Value)
-						if assetLib.Sounds.Button[Sound.Value] ~= nil then
-							sndLib.PlaySoundClient("3d", "", assetLib.Sounds.Button[Sound.Value], 0.5, 1, false, 5, trigger)
+						if Orakel.FindSound(Sound.Value) ~= nil then
+							sndLib.PlaySoundClient("3d", "", Orakel.FindSound(Sound.Value), 0.5, 1, false, 5, trigger)
 						else
 							warn(Orakel.Configuration.WarnHeader.."Trigger has invalid SoundId!")
 						end

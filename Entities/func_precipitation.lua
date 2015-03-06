@@ -118,6 +118,9 @@ end
 -- Update all splashes
 function splashUpdate()
 	while true do
+    if not ent.Enabled.Value then
+       break
+    end
 		if not Entity.Status then
 			break
 		end
@@ -157,6 +160,9 @@ end
 
 function rainUpdate(ent)
 	while true do
+	  if not ent.Enabled.Value then
+	     break
+	  end
 		if not Entity.Status then
 			break
 		end
@@ -268,29 +274,37 @@ end
 
 
 
-Entity.Runtime = function(ent)
-	while wait(1/5) do
-		if ent.Enabled.Value and not Entity.Status then
-			Entity.Status = true
-			fallTo = ent.Position.y - (ent.Size.y  / 2)
-			height = ent.Position.y + (ent.Size.y  / 2)
-			quality = ent.Intensity.Value
-			
-			spawn(function() 
-				rainUpdate(ent) 
-			end)
-			spawn(function() 
-				splashUpdate(ent) 
-			end)
-			
-			while wait(1/2) do
-				if not ent.Enabled.Value then
-					Entity.Status = false
-					break
-				end
-			end
-		end
-	end
+Entity.KeyValues = {
+  ["EntityName"] = "";
+  ["Enabled"] = true;
+  ["Droplets"] = true;
+  ["Intensity"] = 1;
+  ["RainColor"] = Color3.new(121/255, 121/255, 121/255);
+  ["RainType"] = "Rain";
+}
+
+
+Entity.Inputs = {
+  ["Toggle"] = function(ent)
+    ent.Enabled.Value = not ent.Enabled.Value
+    if ent.Enabled.Value then
+      fallTo = ent.Position.y - (ent.Size.y  / 2)
+      height = ent.Position.y + (ent.Size.y  / 2)
+      quality = ent.Intensity.Value
+      spawn(function() 
+        rainUpdate(ent) 
+      end)
+      spawn(function() 
+        splashUpdate(ent) 
+      end)
+    end
+  end;
+}
+
+
+
+
+Entity.Update = function(ent)
 end
 
 

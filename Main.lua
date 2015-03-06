@@ -4,7 +4,6 @@ local run = game:GetService("RunService")
 
 
 
-
 Module.Configuration = {
 	Version = "version 1.0.2.4";
 	SoloTestMode = game:FindService("NetworkServer") == nil and game:FindService("NetworkClient") == nil;
