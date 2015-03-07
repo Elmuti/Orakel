@@ -5,7 +5,7 @@ local run = game:GetService("RunService")
 
 
 Module.Configuration = {
-	Version = "version 1.7.3.0";
+	Version = "version 1.7.3.2";
 	SoloTestMode = game:FindService("NetworkServer") == nil and game:FindService("NetworkClient") == nil;
 	PrintHeader = "Orakel |  ";
 	WarnHeader = "Orakel Warning |  ";
@@ -30,8 +30,9 @@ Module.GameInfo = {
 	CutsceneDir = game.ReplicatedStorage.Cutscenes;
 	AnimsDir = game.ReplicatedStorage.Animations;
 	EventsDir = game.ReplicatedStorage.Events;
-	CustomPlayer = true;
-	CameraOffset = CFrame.new(0, 2, 0); --3rd person: CFrame.new(1, 2, 10)
+	CustomPlayer = false;
+	CameraOffset = CFrame.new(0, 2, 0); --NOTE: ONLY ACTIVE WHEN CUSTOMPLAYER IS ENABLED
+	--3rd. Person: CFrame.new(1, 2, 10);
 	CorpseFadeTime = 10;
 }
 
@@ -50,6 +51,13 @@ Module.EntitiesToHide = {
 	["nav_clip"] = true;
 	["func_precipitation"] = true;
 }
+
+Module.InitInput = function(ent, name)
+  local be = Instance.new("BindableEvent")
+  be.Name = name
+  be.Parent = ent
+  return be
+end
 
 
 Module.GetKeyValue = function(ent, val)
