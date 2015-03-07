@@ -5,9 +5,12 @@ local assetLib = Orakel.LoadModule("AssetLib")
 local physLib = Orakel.LoadModule("PhysLib")
 
 
+Entity.Type = "Brush"
+Entity.EditorTexture = ""
+
 Entity.KeyValues = {
   ["EntityName"] = "";
-  ["Health"] = 10;
+  ["Health"] = 100;
 }
 
 

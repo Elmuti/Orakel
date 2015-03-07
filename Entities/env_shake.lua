@@ -3,6 +3,8 @@ local Entity = {}
 Entity.Status = true
 local camLib = Orakel.LoadModule("CameraLib")
 
+Entity.Type = "Point"
+Entity.EditorTexture = "http://www.roblox.com/asset/?id=220513941"
 
 Entity.KeyValues = {
   ["EntityName"] = "";

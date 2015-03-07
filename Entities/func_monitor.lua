@@ -2,6 +2,10 @@ local Orakel = require(game.ReplicatedStorage.Orakel.Main)
 local Entity = {}
 Entity.Status = true
 
+
+Entity.Type = "Brush"
+Entity.EditorTexture = ""
+
 Entity.KeyValues = {
   ["EntityName"] = "";
   ["Enabled"] = false;

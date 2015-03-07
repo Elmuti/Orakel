@@ -3,6 +3,9 @@ local Entity = {}
 Entity.Status = true
 
 
+Entity.Type = "Point"
+Entity.EditorTexture = "http://www.roblox.com/asset/?id=221279682"
+
 Entity.KeyValues = {
   ["EntityName"] = "";
   ["SceneScript"] = "";

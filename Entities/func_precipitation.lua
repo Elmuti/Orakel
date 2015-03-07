@@ -1,6 +1,10 @@
 local Orakel = require(game.ReplicatedStorage.Orakel.Main)
 local Entity = {}
 
+
+Entity.Type = "Brush"
+Entity.EditorTexture = "http://www.roblox.com/asset/?id=221530480"
+
 local plr = game.Players.LocalPlayer
 local char = plr.Character
 local pgui = plr.PlayerGui

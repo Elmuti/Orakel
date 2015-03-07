@@ -5,7 +5,7 @@ local run = game:GetService("RunService")
 
 
 Module.Configuration = {
-	Version = "version 1.0.2.4";
+	Version = "version 1.7.3.0";
 	SoloTestMode = game:FindService("NetworkServer") == nil and game:FindService("NetworkClient") == nil;
 	PrintHeader = "Orakel |  ";
 	WarnHeader = "Orakel Warning |  ";
@@ -37,35 +37,36 @@ Module.GameInfo = {
 
 
 
---Essentially this list defines what is compiled
---The bool isBrush defines which entities are set invisible during compile
-Module.EntityList = {
-	--string Entity, bool isBrush
-	["point_camera"] = false;
-	["info_player_start"] = false;
-	["weapon_spawn"] = false;
-	["phys_rope"] = false;
-	["light_env"] = false;
-	["func_monitor"] = false; --yes
-	["env_spark"] = false;
-	["env_soundscape"] = false;
-	["env_fire"] = false;
-	["func_button"] = false; --yes
+--Essentially this list defines what brushes are drawn invisible when compiled
+Module.EntitiesToHide = {
+	--string Entity, bool setInvis
+	["point_camera"] = true;
+	["info_player_start"] = true;
+	["func_button"] = true;
 	["func_water"] = true;
 	["func_trigger"] = true;
 	["trigger_hurt"] = true;
-	["func_breakable"] = false; --yes
-	["env_explosion"] = false;
-	["env_shake"] = false;
-	["npc_maker"] = false;
-	["ai_goal"] = false;
-	["logic_choreographed_scene"] = false;
+	["func_breakable"] = true;
 	["nav_clip"] = true;
-	["ai_recollect"] = false;
 	["func_precipitation"] = true;
-	["point_myentity"] = false;
 }
 
+
+Module.GetKeyValue = function(ent, val)
+  local ex = ent:FindFirstChild(val, true)
+  if ex then
+    return ex.Value
+  end
+  return nil
+end
+
+
+Module.SetKeyValue = function(ent, val, newVal)
+  local ex = ent:FindFirstChild(val, true)
+  if ex then
+    ex.Value = newVal
+  end
+end
 
 
 Module.TweenModel = function(model, c0, c1, t0, func_OnGoal)
@@ -144,20 +145,25 @@ Module.FindSound = function(name)
 end
 
 
+local function findScript(rootDir, sc)
+  local strLib = Module.LoadModule("StringLib")
+  local folder, file, filename
+  if string.find(sc, "_") then
+    filename = strLib.Split(sc, "_")
+  end
+  if type(filename) == "table" then
+    folder = rootDir:FindFirstChild(filename[1])
+    file = folder:FindFirstChild(filename[2])
+  else
+    file = rootDir:FindFirstChild(filename)
+  end
+  return file
+end
+
 
 Module.PlayCutscene = function(sc, arg)
-	local strLib = Module.LoadModule("StringLib")
-	local filename = sc
-	local folder, file
-	if string.find(sc, "_") then
-		filename = strLib.Split(sc, "_")
-	end
-	if type(filename) == "table" then
-		folder = Module.GameInfo.CutsceneDir:FindFirstChild(filename[1])
-		file = folder:FindFirstChild(filename[2])
-	else
-		file = Module.GameInfo.CutsceneDir:FindFirstChild(filename)
-	end
+	local dir = Module.GameInfo.CutsceneDir
+	local file = findScript(dir, sc)
 	if file then
 		warn(Module.Configuration.PrintHeader.."Running scene '"..sc.."'")
 		spawn(function()
@@ -177,18 +183,8 @@ end
 
 
 Module.RunScript = function(sc, arg)
-	local strLib = Module.LoadModule("StringLib")
-	local filename = sc
-	local folder, file
-	if string.find(sc, "_") then
-		filename = strLib.Split(sc, "_")
-	end
-	if type(filename) == "table" then
-		folder = Module.GameInfo.ScriptsDir:FindFirstChild(filename[1])
-		file = folder:FindFirstChild(filename[2])
-	else
-		file = Module.GameInfo.ScriptsDir:FindFirstChild(filename)
-	end
+	local dir = Module.GameInfo.ScriptsDir
+	local file = findScript(dir, sc)
 	if file then
 		warn(Module.Configuration.PrintHeader.."Running script '"..sc.."'")
 		spawn(function()
@@ -206,19 +202,10 @@ Module.RunScript = function(sc, arg)
 	end
 end
 
+
 Module.RunScene = function(sc, arg, arg2)
-	local strLib = Module.LoadModule("StringLib")
-	local filename = sc
-	local folder, file
-	if string.find(sc, "_") then
-		filename = strLib.Split(sc, "_")
-	end
-	if type(filename) == "table" then
-		folder = Module.GameInfo.ScriptsDir:FindFirstChild(filename[1])
-		file = folder:FindFirstChild(filename[2])
-	else
-		file = Module.GameInfo.ScriptsDir:FindFirstChild(filename)
-	end
+  local dir = Module.GameInfo.ScriptsDir
+  local file = findScript(dir, sc)
 	if file then
 		warn(Module.Configuration.PrintHeader.."Running scene '"..sc.."'")
 		spawn(function()

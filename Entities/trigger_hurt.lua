@@ -10,6 +10,8 @@ Entity.Status = true
 local npcLib = Orakel.LoadModule("NpcLib")
 
 
+Entity.Type = "Brush"
+Entity.EditorTexture = "http://www.roblox.com/asset/?id=221530480"
 
 local function IsPartInRegion(part, region)
 	local list = workspace:FindPartsInRegion3WithIgnoreList(region, _G.ignorecommon)

@@ -5,6 +5,9 @@ local assetLib = Orakel.LoadModule("AssetLib")
 local phys = Orakel.LoadModule("PhysLib")
 local sndLib = Orakel.LoadModule("SoundLib")
 
+Entity.Type = "Point"
+Entity.EditorTexture = "http://www.roblox.com/asset/?id=220513937"
+
 Entity.KeyValues = {
   ["EntityName"] = "";
   ["Enabled"] = true;

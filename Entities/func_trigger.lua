@@ -10,6 +10,8 @@ Entity.Status = true
 local sndLib = Orakel.LoadModule("SoundLib")
 local assetLib = Orakel.LoadModule("AssetLib")
 
+Entity.Type = "Brush"
+Entity.EditorTexture = "http://www.roblox.com/asset/?id=221530480"
 
 local function IsPartInRegion(part, region)
 	local list = workspace:FindPartsInRegion3WithIgnoreList(region, _G.ignorecommon)

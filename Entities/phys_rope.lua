@@ -4,6 +4,9 @@ Entity.Status = true
 local phys = Orakel.LoadModule("PhysLib")
 
 
+Entity.Type = "Point"
+Entity.EditorTexture = "http://www.roblox.com/asset/?id=197934032"
+
 Entity.KeyValues = {
   ["EntityName"] = "";
   ["FrontAttach"] = nil;

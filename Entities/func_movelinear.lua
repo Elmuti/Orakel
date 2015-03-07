@@ -4,6 +4,8 @@ Entity.Status = true
 local sndLib = Orakel.LoadModule("SoundLib")
 
 
+Entity.Type = "Brush"
+Entity.EditorTexture = ""
 
 Entity.KeyValues = {
  ["EntityName"] = "";

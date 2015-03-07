@@ -3,6 +3,10 @@ local Entity = {}
 Entity.Status = true
 
 
+Entity.Type = "Point"
+Entity.EditorTexture = "http://www.roblox.com/asset/?id=183645934"
+
+
 Entity.KeyValues = {
   ["EntityName"] = "";
   ["Enabled"] = true;
