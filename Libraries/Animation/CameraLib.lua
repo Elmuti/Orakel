@@ -25,6 +25,8 @@ Module.TweenCamera = function(c0, f0, c1, f1, t0, tween)
 	c1 = CFrame.new(c1.p, f1.p)
 	if tween then
 		cam:Interpolate(c1, f1, t0 or 1)
+	else
+	  cam.CoordinateFrame = CFrame.new(c1.p, f1.p)
 	end
 end
 

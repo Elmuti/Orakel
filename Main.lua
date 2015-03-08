@@ -5,7 +5,7 @@ local run = game:GetService("RunService")
 
 
 Module.Configuration = {
-	Version = "version 1.8.1.0";
+	Version = "version 1.8.7.2";
 	SoloTestMode = game:FindService("NetworkServer") == nil and game:FindService("NetworkClient") == nil;
 	PrintHeader = "Orakel |  ";
 	WarnHeader = "Orakel Warning |  ";
@@ -23,8 +23,15 @@ Module.Configuration = {
 Module.GameInfo = {
 	Name = "ORAKEL";
 	Icon = "http://www.roblox.com/asset/?id=220270070";
+	Menu = {
+	 Icon = "http://www.roblox.com/asset/?id=224720024";
+	 FontSize = Enum.FontSize.Size18;
+	 Font = Enum.Font.Legacy;
+	 ButtonSize = UDim2.new(1, 0, 0.1, 0);
+	};
 	IntroSong = "http://www.roblox.com/asset/?id=157520543";
 	MainMenu = true; --Run main menu OR just straight up load a level?
+	BackgroundLevel = "bg_c1m1"; --Level to show on main menu
 	StartLevel = "c1m1";
 	--MapsDir = game.ServerStorage.Maps;
 	ScriptsDir = game.ReplicatedStorage.Scripts;
@@ -242,7 +249,7 @@ Module.PlayCutscene = function(sc, arg)
 	local dir = Module.GameInfo.CutsceneDir
 	local file = findScript(dir, sc)
 	if file then
-		warn(Module.Configuration.PrintHeader.."Running scene '"..sc.."'")
+		warn(Module.Configuration.PrintHeader.."Running cutscene '"..sc.."'")
 		spawn(function()
 			local stat,err = pcall(function()
 				local sc = require(file)
@@ -284,7 +291,7 @@ Module.RunScene = function(sc, arg, arg2)
   local dir = Module.GameInfo.ScriptsDir
   local file = findScript(dir, sc)
 	if file then
-		warn(Module.Configuration.PrintHeader.."Running scene '"..sc.."'")
+		warn(Module.Configuration.PrintHeader.."Running choreo_scene '"..sc.."'")
 		spawn(function()
 			local stat,err = pcall(function()
 				local sc = require(file)

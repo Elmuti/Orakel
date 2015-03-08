@@ -131,8 +131,9 @@ function updateRaycastIgnoreList()
 	local map = Orakel.GetMap()
 	if map ~= nil then
 		_G.ignorecommon = {map}
-		_G.ignorelist = {workspace.Ignore, map.Entities, map.Clip, char}
-		_G.entityignore = {workspace.Ignore, map.Entities.info_player_start, map.Clip, char}
+		_G.ignoreai = {workspace.Ignore, map.Entities}
+		_G.ignorelist = {workspace.Ignore, map.Entities, map.Clip, map.NavClip, char}
+		_G.entityignore = {workspace.Ignore, map.Entities.info_player_start, map.Clip, map.NavClip, char}
 	end
 end
 
@@ -228,7 +229,7 @@ end
 
 function dpsTick()
 	local cancel = false
-	events.Events.MapChange.OnClientEvent:connect(function()
+	events.Events.MapChange.Event:connect(function()
 		cancel = true
 	end)
 	while true do

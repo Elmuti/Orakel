@@ -36,6 +36,7 @@ Entity.Inputs = {
       CFrame.new(ent.Goal.Value), 
       ent.Duration.Value
     )
+    moveSound:Stop()
     stopSound = sndLib.PlaySoundClient("3d", "", stopSound, 1, 1, false, 10, ent.Primary)
   end;
   

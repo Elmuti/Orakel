@@ -47,6 +47,8 @@ Entity.KeyValues = {
   ["Script"] = "";
   ["SoundTriggered"] = "";
   ["TimesUsed"] = 0;
+  ["TargetEntity"] = "";
+  ["TargetInput"] = ""
 }
 
 
@@ -96,6 +98,17 @@ Entity.Update = function(trigger)
 					if Success then
 						print("Trigger activated")
 						Orakel.RunScript(Script.Value)
+						
+						if trigger.TargetEntity.Value ~= "" and trigger.TargetInput.Value ~= "" then
+						  local targEnt = Orakel.FindEntity(trigger.TargetEntity.Value)
+						  local targInp = trigger.TargetInput.Value
+						  if targEnt ~= nil then
+						    Orakel.FireInput(targEnt, targInp)
+						  else
+						    warn(Orakel.Configuration.WarnHeader.."Entity '"..trigger.TargetEntity.Value.."' does not exist! Cannot trigger input from trigger!")
+						  end
+						end
+
 						if Orakel.FindSound(Sound.Value) ~= nil then
 							sndLib.PlaySoundClient("3d", "", Orakel.FindSound(Sound.Value), 0.5, 1, false, 5, trigger)
 						else

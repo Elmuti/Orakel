@@ -6,6 +6,7 @@ Entity.Status = true
 Entity.Type = "Point"
 Entity.EditorTexture = "http://www.roblox.com/asset/?id=221279682"
 
+
 Entity.KeyValues = {
   ["EntityName"] = "";
   ["SceneScript"] = "";
@@ -20,40 +21,28 @@ Entity.KeyValues = {
   ["Actor8"] = "";
 }
 
+local function collectActors(ent)
+  local actors = {}
+  local num = 0
+  for _, v in pairs(ent:GetChildren()) do
+    if v.ClassName == "StringValue" then
+      if string.find(v.Name, "Actor") then
+        local actorId = string.sub(v.Name, 6)
+        actors[actorId] = Orakel.FindEntity(v.Value)
+        print("collectActors -> actorId: "..tostring(actorId).."  actorValue: "..tostring(actors[actorId]))
+      end
+    end
+  end
+  return actors
+end
+
 
 Entity.Inputs = {
   ["Start"] = function(ent)
-    warn(Orakel.Configuration.WarnHeader.." Cannot use input 'Start' on logic_choreo_scene! Not yet implemented!")
+    local actors = collectActors(ent)
+    Orakel.RunScene(ent.SceneScript.Value, actors, ent.InterruptCurrent.Value)
   end;
 }
-
-
-
-Entity.Update = function(e)
---	local function collectActors(e)
---		local actors = {}
---		local num = 0
---		for _, v in pairs(e:GetChildren()) do
---			if v.ClassName == "StringValue" then
---				if string.find(v.Name, "Actor") then
---					local actorId = string.sub(v.Name, 6)
---					actors[actorId] = Orakel.FindNpc(v.Value)
---					print("collectActors -> actorId: "..tostring(actorId).."  actorValue: "..tostring(actors[actorId]))
---				end
---			end
---		end
---		return actors
---	end
---
---	while wait(1/10) do
---		if e.Enabled.Value then
---			local actors = collectActors(e)
---			local scene = e.SceneScript.Value
---			Orakel.RunScene(scene, actors, e.InterruptCurrent.Value)
---			e.Enabled.Value = false
---		end
---	end
-end
 
 
 Entity.Kill = function()

@@ -24,10 +24,17 @@ end
 
 
 function initMap(mapname)
+  local oldMap = Orakel.GetMap()
+  if oldMap ~= nil then
+    oldMap:Destroy()
+  end
+  local camLib = Orakel.LoadModule("CameraLib")
+  camLib.SetCameraDefault(false, 0.1)
   game.ReplicatedStorage.Events.MapChange:Fire()
+  currentMap = player.CurrentMap
   
   local map = game.ReplicatedStorage.Maps[mapname]
-  currentMap.Value = mapLib.LoadMap(map, currentMap.Value)
+  currentMap.Value = mapLib.LoadMap(map)
   currentMap = currentMap.Value
   
   game.ReplicatedStorage.Events.ToggleLoadingDialog:Fire(currentMap.LevelName.Value, currentMap.Image.Value)
@@ -37,9 +44,13 @@ function initMap(mapname)
     wait()
   until rdy.Value == true
   print("Player ready")
+  wait(2)
   
   spawnPlayer(currentMap)
+  wait(1)
+  torso.Anchored = false
   
+  game.ReplicatedStorage.Events.ShowMenu:Fire()
   game.ReplicatedStorage.Events.UpdateRayCastIgnoreList:Fire()
   game.ReplicatedStorage.Events.MapLoad:Fire()
   game.ReplicatedStorage.Events.ToggleLoadingDialog:Fire(currentMap.LevelName.Value, currentMap.Image.Value)
@@ -48,6 +59,7 @@ function initMap(mapname)
 end
 
 
-initMap(Orakel.GameInfo.StartLevel)
+initMap(Orakel.GameInfo.BackgroundLevel)
+game.ReplicatedStorage.Events.InitNewMap.Event:connect(initMap)
 
 
