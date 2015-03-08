@@ -143,6 +143,6 @@ end
 wait(2)
 updateParticles()
 
-events.Events.MapChange.OnClientEvent:connect(updateParticles)
+events.Events.MapChange.Event:connect(updateParticles)
 
 

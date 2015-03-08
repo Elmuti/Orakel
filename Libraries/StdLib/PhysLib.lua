@@ -610,24 +610,24 @@ function lib.Explosion(position, isVisual, damageMult, maxRadius, killRadius)
 	                local mult = ((maxRadius - killRadius) / 100)
 	                local dmg = (maxRadius - dist) / mult
 	                dmg = mathLib.Round(dmg * damageMult)
-					local npcLib = Orakel.LoadModule("NpcLib")
-				    npcLib.DealDamage(player.Character.Humanoid, dmg, "BLAST")
+        					local npcLib = Orakel.LoadModule("NpcLib")
+        				  npcLib.DealDamage(player.Character.Humanoid, dmg, "BLAST")
 	            end
 	        end
 	    end
 	end
 	
-	for _, ent in pairs(map.Entities:children()) do
-		if ent.Name == "func_breakable" then
-			local dist = (ent.Position - position).magnitude
-			if not (dist >= maxRadius) then
-				local a, b, c = ent.Position, assetLib.RealMaterial:Get(ent), ent.Size
-				ent:Destroy()
-				local tex = ent:FindFirstChild("Texture")
-				lib.SpawnGibs(a, b, c, tex)
-			end
-		end
-	end
+--	for _, ent in pairs(map.Entities:children()) do
+--		if ent.Name == "func_breakable" then
+--			local dist = (ent.Position - position).magnitude
+--			if not (dist >= maxRadius) then
+--				local a, b, c = ent.Position, assetLib.RealMaterial:Get(ent), ent.Size
+--				ent:Destroy()
+--				local tex = ent:FindFirstChild("Texture")
+--				lib.SpawnGibs(a, b, c, tex)
+--			end
+--		end
+--	end
 end
 
 

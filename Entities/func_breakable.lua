@@ -15,11 +15,28 @@ Entity.KeyValues = {
 
 
 Entity.Inputs = {
+  ["Damage"] = function(ent, dmg)
+    ent.Health.Value = ent.Health.Value - dmg
+  end;
   ["Break"] = function(ent)
-    local origin = ent.Position
-    local realmat = assetLib.RealMaterial:Get(ent)
-    local texture = ent:FindFirstChild("Texture")
-    physLib.SpawnGibs(origin, realmat, ent.Size, texture)
+    if ent:IsA("BasePart") then
+      local origin = ent.Position
+      local realmat = assetLib.RealMaterial:Get(ent)
+      local texture = ent:FindFirstChild("Texture")
+      physLib.SpawnGibs(origin, realmat, ent.Size, texture)
+      ent:Destroy()
+      Entity.Status = false
+    else
+      local children = Orakel.GetChildrenRecursive(ent)
+      for _, child in pairs(children) do
+        local origin = ent.Position
+        local realmat = assetLib.RealMaterial:Get(ent)
+        local texture = ent:FindFirstChild("Texture")
+        physLib.SpawnGibs(origin, realmat, ent.Size, texture)
+        child:Destroy()
+        Entity.Status = false
+      end
+    end
   end;
 }
 

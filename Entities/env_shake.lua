@@ -18,6 +18,7 @@ Entity.KeyValues = {
 Entity.Inputs = {
   ["StartShake"] = function(ent)
     if ent.Enabled.Value then
+      local cam = workspace.CurrentCamera
       camLib.ShakeCamera(cam.CoordinateFrame, cam.Focus, ent.Frequency.Value, ent.Duration.Value, true)
     end
   end;

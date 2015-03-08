@@ -10,6 +10,7 @@ Entity.KeyValues = {
 }
 
 
+Entity.Inputs = {}
 
 Entity.Update = function(part)
 	part.Transparency = 1

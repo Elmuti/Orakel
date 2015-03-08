@@ -5,7 +5,7 @@ local run = game:GetService("RunService")
 
 
 Module.Configuration = {
-	Version = "version 1.7.3.2";
+	Version = "version 1.8.1.0";
 	SoloTestMode = game:FindService("NetworkServer") == nil and game:FindService("NetworkClient") == nil;
 	PrintHeader = "Orakel |  ";
 	WarnHeader = "Orakel Warning |  ";
@@ -24,6 +24,7 @@ Module.GameInfo = {
 	Name = "ORAKEL";
 	Icon = "http://www.roblox.com/asset/?id=220270070";
 	IntroSong = "http://www.roblox.com/asset/?id=157520543";
+	MainMenu = true; --Run main menu OR just straight up load a level?
 	StartLevel = "c1m1";
 	--MapsDir = game.ServerStorage.Maps;
 	ScriptsDir = game.ReplicatedStorage.Scripts;
@@ -47,16 +48,82 @@ Module.EntitiesToHide = {
 	["func_water"] = true;
 	["func_trigger"] = true;
 	["trigger_hurt"] = true;
-	["func_breakable"] = true;
 	["nav_clip"] = true;
 	["func_precipitation"] = true;
 }
+
+
+Module.GetChildrenRecursive = function(obj)
+  local children = obj:GetChildren()
+  local list = {}
+  for child = 1, #children do
+    list[#list + 1] = children[child]
+    local subChildren = Module.GetChildrenRecursive(children[child])
+    for sc = 1, #subChildren do
+      list[#list + 1] = subChildren[sc]
+    end
+  end
+  return list
+end
+
+
+local function initEntity(ent, sc)
+  local entCode = require(sc)
+  
+  local kvals = entCode.KeyValues
+  local inputs = entCode.Inputs
+  local update = entCode.Update
+
+  if update ~= nil then
+    spawn(function()
+      update(ent)
+    end)
+  end
+  print("initializing "..tostring(ent).." ...")
+  
+  if inputs ~= nil then
+    for input, func in pairs(inputs) do
+      local newInp = Module.InitInput(ent, input)
+      newInp.Event:connect(func)
+    end
+  else
+    warn(Module.Configuration.ErrorHeader.."Entity '"..tostring(ent).."' has no inputs defined!!")
+  end
+  game.ReplicatedStorage.Events.MapChange.Event:connect(entCode.Kill)
+end
+
+
+Module.InitEntities = function(map)
+  local ents = map.Entities:GetChildren()
+  local eScripts = game.ReplicatedStorage.Orakel.Entities:GetChildren()
+  for _, ent in pairs(ents) do
+    for _, es in pairs(eScripts) do
+      if es.Name == ent.Name then
+        initEntity(ent, es)
+        --else
+        --warn(Module.Configuration.WarnHeader.."Tried to initialize invalid entity '"..ent.Name.."' !")
+      end
+    end
+  end
+end
+
+
 
 Module.InitInput = function(ent, name)
   local be = Instance.new("BindableEvent")
   be.Name = name
   be.Parent = ent
   return be
+end
+
+
+Module.FireInput = function(ent, inp, ...)
+  local ex = ent:FindFirstChild(inp, true)
+  if ex then
+    ex:Fire(ent, ...)
+  else
+    warn(Module.Configuration.WarnHeader.."Tried to fire input '"..tostring(inp).."' which is not a part of '"..tostring(ent).."' !")
+  end
 end
 
 
@@ -77,10 +144,11 @@ Module.SetKeyValue = function(ent, val, newVal)
 end
 
 
-Module.TweenModel = function(model, c0, c1, t0, func_OnGoal)
+
+Module.TweenModel = function(model, c0, c1, t0, callBack)
 	print(Module.Configuration.PrintHeader.."Tweening "..tostring(model).."...")
 	local CFrameInterp = Module.LoadModule("CFrameInterp")
-	local children = model:children()
+	local children = Module.GetChildrenRecursive(model)
 	local now = tick()
 	local angle, interpFunc = CFrameInterp(c0, c1)
 	local steps = t0 * 60
@@ -105,7 +173,7 @@ Module.TweenModel = function(model, c0, c1, t0, func_OnGoal)
 		Module.WaitRender()
 	end
 	
-	for _, p in pairs(model:children()) do
+	for _, p in pairs(children) do
 		if p:IsA("BasePart") then
 			p.Velocity = Vector3.new(0, 0, 0)
 		end
@@ -114,9 +182,9 @@ Module.TweenModel = function(model, c0, c1, t0, func_OnGoal)
 	model:SetPrimaryPartCFrame(c1)
 	print(Module.Configuration.PrintHeader..tick() - now.." time taken to tween "..tostring(model)..", Set Duration was "..t0)
 	
-	if func_OnGoal ~= nil then
-		if type(func_OnGoal) == "function" then
-			func_OnGoal()
+	if callBack ~= nil then
+		if type(callBack) == "function" then
+			callBack()
 		end
 	end
 end
@@ -155,7 +223,8 @@ end
 
 local function findScript(rootDir, sc)
   local strLib = Module.LoadModule("StringLib")
-  local folder, file, filename
+  local folder, file
+  local filename = sc
   if string.find(sc, "_") then
     filename = strLib.Split(sc, "_")
   end
@@ -178,7 +247,7 @@ Module.PlayCutscene = function(sc, arg)
 			local stat,err = pcall(function()
 				local sc = require(file)
 				sc.Main(arg)
-				Module.GameInfo.EventsDir.MapChange.OnClientEvent:connect(sc.Kill)
+				Module.GameInfo.EventsDir.MapChange.Event:connect(sc.Kill)
 			end)
 			if not stat then
 				warn(Module.Configuration.ErrorHeader..err)
@@ -199,7 +268,7 @@ Module.RunScript = function(sc, arg)
 			local stat,err = pcall(function()
 				local sc = require(file)
 				sc.Main(arg)
-				Module.GameInfo.EventsDir.MapChange.OnClientEvent:connect(sc.Kill)
+				Module.GameInfo.EventsDir.MapChange.Event:connect(sc.Kill)
 			end)
 			if not stat then
 				warn(Module.Configuration.ErrorHeader..err)
@@ -220,7 +289,7 @@ Module.RunScene = function(sc, arg, arg2)
 			local stat,err = pcall(function()
 				local sc = require(file)
 				sc.Main(arg, arg2)
-				Module.GameInfo.EventsDir.MapChange.OnClientEvent:connect(sc.Kill)
+				Module.GameInfo.EventsDir.MapChange.Event:connect(sc.Kill)
 			end)
 			if not stat then
 				warn(Module.Configuration.ErrorHeader..err)
@@ -237,10 +306,7 @@ Module.GetMap = function()
 	if game.Players.LocalPlayer == nil then
 		map = workspace.Game.CurrentMap.Value
 	else
-		local mapname = game.ReplicatedStorage.Events.GetGameValue:InvokeServer("CurrentMap")
-		if mapname ~= nil then
-			map = workspace:findFirstChild(mapname)
-		end
+    map = game.Players.LocalPlayer.CurrentMap.Value
 	end
 	return map
 end

@@ -37,7 +37,7 @@ createSplash()
 
 local rdy = player:FindFirstChild("Ready")
 while rdy == nil do wait() end
-
+print("Ready found")
 
 function main()
 	sndLib.PlaySoundClient("global", "introMusic", Orakel.GameInfo.IntroSong, 0.5, 1, false, 120)
@@ -47,13 +47,13 @@ function main()
 	tLib:TweenRender(logo, "ImageTransparency", 0, "Linear", 2)
 	wait(showtime_logo)
 	tLib:TweenRender(logo, "ImageTransparency", 1, "Linear", 2)
-	tLib:TweenRender(gamelogo, "ImageTransparency", 0, "Linear", 2)
-	wait(showtime_gamelogo)
-	tLib:TweenRenderAsync(gamelogo, "ImageTransparency", 1, "Linear", 2)
+	--tLib:TweenRender(gamelogo, "ImageTransparency", 0, "Linear", 2)
+	--wait(showtime_gamelogo)
+	--tLib:TweenRenderAsync(gamelogo, "ImageTransparency", 1, "Linear", 2)
 	tLib:TweenRender(splash, "BackgroundColor3", Color3.new(0,0,0), "Linear", 2)
 	game.ReplicatedStorage.Events.PlayerReady:FireServer()
 
-	game.ReplicatedStorage.Events.MapLoad.OnClientEvent:connect(function()
+	game.ReplicatedStorage.Events.MapLoad.Event:connect(function()
 		tLib:TweenRender(splash, "BackgroundTransparency", 1, "Linear", 2)
 	end)
 end
@@ -62,7 +62,7 @@ end
 if not rdy.Value then
 	main()
 else
-	game.ReplicatedStorage.Events.MapLoad.OnClientEvent:connect(function()
+	game.ReplicatedStorage.Events.MapLoad.Event:connect(function()
 		tLib:TweenRender(splash, "BackgroundTransparency", 1, "Linear", 2)
 	end)
 end

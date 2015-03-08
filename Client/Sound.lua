@@ -134,5 +134,5 @@ end
 
 
 
-game.ReplicatedStorage.Events.MapLoad.OnClientEvent:connect(updateLoop)
+game.ReplicatedStorage.Events.MapLoad.Event:connect(updateLoop)
 game.ReplicatedStorage.Events.PlaySoundClient.OnClientEvent:connect(playSoundClientEvent)

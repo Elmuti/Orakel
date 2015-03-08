@@ -41,10 +41,6 @@ Entity.Inputs = {
 
 
 
-Entity.Update = function(btn)
-end
-
-
 Entity.Kill = function(ent)
 	Entity.Status = false
 end

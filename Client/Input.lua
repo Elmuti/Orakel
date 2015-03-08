@@ -63,13 +63,7 @@ input.InputBegan:connect(function(obj)
 			local hit = mouse.Target
 			if hit ~= nil then
 				if hit.Name == "func_button" then
-					print("hello i clicked a button :)")
-					local btn = hit
-					local dist = (torso.Position - btn.Position).magnitude
-					if btn.Clicked.Value == false and dist <= btn.Radius.Value then
-						print("Clicked is false and radius acceptable :)")
-						btn.Clicked.Value = true
-					end
+          Orakel.FireInput(hit, "Use")
 				end
 			end
 		end

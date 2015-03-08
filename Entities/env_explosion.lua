@@ -22,15 +22,14 @@ Entity.KeyValues = {
 
 Entity.Inputs = {
   ["Explode"] = function(ent)
-    if e.Enabled.Value then
-      if Orakel.FindSound(e.ExplosionSound.Value) ~= nil then
-        sndLib.PlaySoundClientAsync("3d", "", assetLib.Sounds.Explosion[ent.ExplosionSound.Value], 1, 1, false, 10, e)
+    if ent.Enabled.Value then
+      if Orakel.FindSound(ent.ExplosionSound.Value) ~= nil then
+        sndLib.PlaySoundClientAsync("3d", "", Orakel.FindSound(ent.ExplosionSound.Value), 1, 1, false, 10, ent)
       else
         warn(Orakel.Configuration.WarnHeader..ent.EntityName.Value.." tried to play sound '"..ent.ExplosionSound.Value.."' which does not exist!")
       end
       phys.Explosion(ent.Position, ent.IsVisual.Value, ent.DamageMultiplier.Value, ent.MaxRadius.Value, ent.KillRadius.Value)
     end
-  end
   end;
 }
 

@@ -278,29 +278,29 @@ end
 -------------------------------------------------------------------------
 
 
-function initEntities()
-	local map = Orakel.GetMap()
-	if map ~= nil then
-		for _, entity in pairs(map.Entities:GetChildren()) do
-			local ent = Orakel.Configuration.Entities:FindFirstChild(entity.Name)
-			if ent then
-				spawn(function()
-					local sc = require(ent)
-					sc.Runtime(entity)
-				end)
-			end
-		end
-	end
-end
+--function initEntities()
+--	local map = Orakel.GetMap()
+--	if map ~= nil then
+--		for _, entity in pairs(map.Entities:GetChildren()) do
+--			local ent = Orakel.Configuration.Entities:FindFirstChild(entity.Name)
+--			if ent then
+--				spawn(function()
+--					local sc = require(ent)
+--					sc.Runtime(entity)
+--				end)
+--			end
+--		end
+--	end
+--end
 
 
 
 updateRaycastIgnoreList()
 preloadAssets()
 game:GetService("RunService").RenderStepped:connect(updateRender)
-events.Events.UpdateRayCastIgnoreList.OnClientEvent:connect(updateRaycastIgnoreList)
-events.Events.MapChange.OnClientEvent:connect(dpsTick)
-events.Events.MapChange.OnClientEvent:connect(initEntities)
+events.Events.UpdateRayCastIgnoreList.Event:connect(updateRaycastIgnoreList)
+events.Events.MapChange.Event:connect(dpsTick)
+--events.Events.MapChange.OnClientEvent:connect(initEntities)
 hum.FreeFalling:connect(humanoidFall)
 
 

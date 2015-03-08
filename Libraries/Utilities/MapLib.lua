@@ -7,23 +7,47 @@ local function getSearchLocs(map)
   local locs = {}
   for _, loc in pairs(map:children()) do
     if loc.ClassName == "Model" and loc.Name ~= "Geometry" then
+      print("Invis location: "..loc:GetFullName())
       table.insert(locs, loc)
     end
   end
   return locs
 end
 
+local function allowedToHide(obj)
+  local list = Orakel.EntitiesToHide
+  for ent, bool in pairs(list) do
+    if obj.Name == ent then
+      return true
+    end
+  end
+  return false
+end
 
 
 local function recursiveInvis(dir)
   for _, obj in pairs(dir:children()) do
     if obj.ClassName == "BillboardGui" then
       obj:Destroy()
-    elseif obj:IsA("BasePart") then
+    elseif obj:IsA("BasePart") and obj:FindFirstChild("BillboardGui") then
       obj.Transparency = 1
       for _, ch in pairs(obj:children()) do
-        if ch.ClassName == "Texture" then
+        if ch.ClassName == "Texture" or ch.ClassName == "BillboardGui" then
           ch:Destroy()
+        end
+      end
+    elseif obj:IsA("BasePart") and not obj:FindFirstChild("BillboardGui") then
+      if allowedToHide(obj) then
+        local chd = Orakel.GetChildrenRecursive(obj)
+        for _, ch in pairs(chd) do
+          if ch:IsA("BasePart") then
+            ch.Transparency = 1
+            for _, tx in pairs(ch:children()) do
+              if tx.ClassName == "Texture" then
+                tx:Destroy()
+              end
+            end
+          end
         end
       end
     else
