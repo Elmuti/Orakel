@@ -62,7 +62,9 @@ input.InputBegan:connect(function(obj)
 			print("PRESSED E LEL")
 			local hit = mouse.Target
 			if hit ~= nil then
+			  print("use target is not nil")
 				if hit.Name == "func_button" then
+				  print("use target is a button!")
           Orakel.FireInput(hit, "Use")
 				end
 			end

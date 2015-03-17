@@ -1,7 +1,6 @@
 local mapLib = {}
 local Orakel = require(game.ReplicatedStorage.Orakel.Main)
-
-
+local EntDir = game.ReplicatedStorage.Orakel.Entities
 
 local function getSearchLocs(map)
   local locs = {}
@@ -25,33 +24,41 @@ local function allowedToHide(obj)
 end
 
 
-local function recursiveInvis(dir)
-  for _, obj in pairs(dir:children()) do
-    if obj.ClassName == "BillboardGui" then
+function editorTextures()
+  local textures = {}
+  for _, entSc in pairs(EntDir:GetChildren()) do
+    local ent
+    local stat, err = pcall(function()
+      ent = require(entSc)
+    end)
+    if not stat then
+      warn(Orakel.Configuration.PrintHeader.."INTERNAL ENTITY ERROR! "..err)
+    end
+    if ent.EditorTexture ~= "" or ent.EditorTexture ~= nil then
+      textures[entSc.Name] = ent.EditorTexture
+    end
+  end
+  return textures
+end
+
+
+function recInvis(dir)
+  local children = Orakel.GetChildrenRecursive(dir)
+  for _, obj in pairs(children) do
+    if obj:IsA("BasePart") then
+      if obj.Name == "node_walk" or obj.Name == "CFrame" or obj.Name == "Focus" then
+        obj.Transparency = 1
+      end
+    elseif obj.ClassName == "Texture" or obj.ClassName == "Decal" then
+      local edTextures = editorTextures(obj)
+      for edEnt, edtx in pairs(edTextures) do
+        if edtx == obj.Texture then
+          print("Entity texture found: "..obj:GetFullName())
+          obj:Destroy()
+        end
+      end
+    elseif obj.ClassName == "BillboardGui" then
       obj:Destroy()
-    elseif obj:IsA("BasePart") and obj:FindFirstChild("BillboardGui") then
-      obj.Transparency = 1
-      for _, ch in pairs(obj:children()) do
-        if ch.ClassName == "Texture" or ch.ClassName == "BillboardGui" then
-          ch:Destroy()
-        end
-      end
-    elseif obj:IsA("BasePart") and not obj:FindFirstChild("BillboardGui") then
-      if allowedToHide(obj) then
-        local chd = Orakel.GetChildrenRecursive(obj)
-        for _, ch in pairs(chd) do
-          if ch:IsA("BasePart") then
-            ch.Transparency = 1
-            for _, tx in pairs(ch:children()) do
-              if tx.ClassName == "Texture" then
-                tx:Destroy()
-              end
-            end
-          end
-        end
-      end
-    else
-      recursiveInvis(obj)
     end
   end
 end
@@ -61,7 +68,7 @@ end
 local function invisClutter(map)
   local locs = getSearchLocs(map)
   for _, loc in pairs(locs) do
-    recursiveInvis(loc)
+    recInvis(loc)
   end
 end
 

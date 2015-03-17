@@ -300,7 +300,7 @@ updateRaycastIgnoreList()
 preloadAssets()
 game:GetService("RunService").RenderStepped:connect(updateRender)
 events.Events.UpdateRayCastIgnoreList.Event:connect(updateRaycastIgnoreList)
-events.Events.MapChange.Event:connect(dpsTick)
+events.Events.MapLoad.Event:connect(dpsTick)
 --events.Events.MapChange.OnClientEvent:connect(initEntities)
 hum.FreeFalling:connect(humanoidFall)
 

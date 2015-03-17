@@ -49,13 +49,12 @@ function initMap(mapname)
   spawnPlayer(currentMap)
   wait(1)
   torso.Anchored = false
+  Orakel.InitEntities(currentMap)
   
   game.ReplicatedStorage.Events.ShowMenu:Fire()
   game.ReplicatedStorage.Events.UpdateRayCastIgnoreList:Fire()
-  game.ReplicatedStorage.Events.MapLoad:Fire()
   game.ReplicatedStorage.Events.ToggleLoadingDialog:Fire(currentMap.LevelName.Value, currentMap.Image.Value)
-  
-  Orakel.InitEntities(currentMap)
+  game.ReplicatedStorage.Events.MapLoad:Fire()
 end
 
 

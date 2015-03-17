@@ -5,7 +5,7 @@ local run = game:GetService("RunService")
 
 
 Module.Configuration = {
-	Version = "version 1.8.7.2";
+	Version = "version 0.8.7.2";
 	SoloTestMode = game:FindService("NetworkServer") == nil and game:FindService("NetworkClient") == nil;
 	PrintHeader = "Orakel |  ";
 	WarnHeader = "Orakel Warning |  ";
@@ -82,9 +82,14 @@ local function initEntity(ent, sc)
   local update = entCode.Update
 
   if update ~= nil then
-    spawn(function()
-      update(ent)
+    local s,e = pcall(function()
+      spawn(function()
+        update(ent)
+      end)
     end)
+    if not s then
+      warn(Module.Configuration.PrintHeader.."INTERNAL ENTITY ERROR: "..e)
+    end
   end
   print("initializing "..tostring(ent).." ...")
   
@@ -127,7 +132,9 @@ end
 Module.FireInput = function(ent, inp, ...)
   local ex = ent:FindFirstChild(inp, true)
   if ex then
-    ex:Fire(ent, ...)
+    if ex.ClassName == "BindableEvent" then
+      ex:Fire(ent, ...)
+    end
   else
     warn(Module.Configuration.WarnHeader.."Tried to fire input '"..tostring(inp).."' which is not a part of '"..tostring(ent).."' !")
   end
@@ -317,6 +324,25 @@ Module.GetMap = function()
 	end
 	return map
 end
+
+function Module.RemoveItem(item, delay)
+  spawn(function()
+    wait(delay)
+    item:Destroy()
+  end)
+end
+
+
+function Module.TLength(t)
+        local l = 0
+        for i, j in pairs(t) do
+                if j ~= nil then
+                        l = l + 1
+                end
+        end
+        return l
+end
+
 
 
 Module.RecursiveFindEntity = function(dir, entityName)

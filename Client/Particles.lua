@@ -41,22 +41,22 @@ function updateParticles()
 						if dist <= maxParticleDist then
 							if los then
 								local snd = Instance.new("Sound", e)
-								snd.SoundId = alib.Sounds.Spark[math.random(1,#alib.Sounds.Spark)]
+								snd.SoundId = alib.Sounds.Spark[math.random(1, Orakel.TLength(alib.Sounds.Spark))]
 								snd.Pitch = math.random(0.9,1.1)
 								snd.Volume = 1 * _G.volume
 								snd:Play()
-								game.Debris:AddItem(snd, 5)
+								Orakel.RemoveItem(snd, 5)
 								coroutine.resume(coroutine.create(function()
 									plib.CreateSparks(e, e.MinAmount.Value, e.MaxAmount.Value, e.VelocityModifier.Value,e.VelocityModifierY.Value, e.Life.Value)
 								end))
 							else
 								if dist <= minParticleDist then
 									local snd = Instance.new("Sound", e)
-									snd.SoundId = alib.Sounds.Spark[math.random(1,#alib.Sounds.Spark)]
+									snd.SoundId = alib.Sounds.Spark[math.random(1, Orakel.TLength(alib.Sounds.Spark))]
 									snd.Pitch = math.random(0.9,1.1)
 									snd.Volume = 1 * _G.volume
 									snd:Play()
-									game.Debris:AddItem(snd, 5)
+									Orakel.RemoveItem(snd, 5)
 									coroutine.resume(coroutine.create(function()
 										plib.CreateSparks(e, e.MinAmount.Value, e.MaxAmount.Value, e.VelocityModifier.Value,e.VelocityModifierY.Value, e.Life.Value)
 									end))
@@ -143,6 +143,6 @@ end
 wait(2)
 updateParticles()
 
-events.Events.MapChange.Event:connect(updateParticles)
+events.Events.MapLoad.Event:connect(updateParticles)
 
 

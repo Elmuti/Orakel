@@ -9,7 +9,7 @@ Entity.EditorTexture = ""
 Entity.KeyValues = {
   ["EntityName"] = "";
   ["Enabled"] = false;
-  ["Looped"] = true
+  ["Looped"] = true;
   ["TrackName"] = "";
 }
 
