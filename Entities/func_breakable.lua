@@ -17,6 +17,7 @@ Entity.KeyValues = {
 Entity.Inputs = {
   ["Damage"] = function(ent, dmg)
     ent.Health.Value = ent.Health.Value - dmg
+    Orakel.FireOutput(ent, "OnDamage")
   end;
   ["Break"] = function(ent)
     if ent:IsA("BasePart") then
@@ -39,10 +40,11 @@ Entity.Inputs = {
       end
       Entity.Status = false
     end
+    Orakel.FireOutput(ent, "OnBreak")
   end;
 }
 
-
+Entity.Outputs = {"OnBreak", "OnDamage"}
 
 Entity.Update = function(ent)
   while wait(1/20) do

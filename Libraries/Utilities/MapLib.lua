@@ -57,6 +57,8 @@ function recInvis(dir)
           obj:Destroy()
         end
       end
+    elseif obj:IsA("BasePart") and (obj.Name == "CFrame" or obj.Name == "Focus" or obj.Name == "light" or obj.Name == "light_surface") then
+      obj.Transparency = 1
     elseif obj.ClassName == "BillboardGui" then
       obj:Destroy()
     end

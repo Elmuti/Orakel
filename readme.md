@@ -10,3 +10,25 @@ Everything on that matter can be found on our [Trello page](https://trello.com/b
 
 
 ## Update / Change Log
+
+
+#### Version 0.8.8.9
+
+-Entities now have both inputs and outputs.
+-New entity "point_viewcontrol"
+-Deprecated "prop_fluorescent", as it is obsolete
+
+
+#### Version 0.8.8.0
+
+-Created a Main Menu
+-New entity "point_viewcontrol"
+
+
+#### Version 0.8.7.2
+
+-Damagetypes and damage handling
+-Model tweening
+-Adopted CruxAnimation
+-Added navigation clips (Brush entity "nav_clip")
+-Defined all entities inside their modules and removed all dependencies outside of those modules

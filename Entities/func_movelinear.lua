@@ -19,6 +19,7 @@ Entity.KeyValues = {
 
 Entity.Inputs = {
   ["Move"] = function(ent)
+    Orakel.FireOutput(ent, "MoveStarted")
     local prim = ent:FindFirstChild("Primary") 
     if not prim then
       warn(Orakel.Configuration.ErrorHeader.." FUNC_MOVELINEAR DOES NOT HAVE A PRIMARY PART")
@@ -38,6 +39,7 @@ Entity.Inputs = {
     )
     moveSound:Stop()
     stopSound = sndLib.PlaySoundClient("3d", "", stopSound, 1, 1, false, 10, ent.Primary)
+    Orakel.FireOutput(ent, "GoalReached")
   end;
   
   ["Stop"] = function(ent)
@@ -45,8 +47,7 @@ Entity.Inputs = {
   end;
 }
 
-
-
+Entity.Outputs = {"MoveStarted", "GoalReached"}
 
 
 Entity.Update = function(ent)

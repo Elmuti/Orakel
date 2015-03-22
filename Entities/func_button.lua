@@ -26,6 +26,7 @@ Entity.Inputs = {
         if btn.TimesUsed.Value > 0 and btn.OnceOnly.Value then
           --print("Cant re-use a used button when OnceOnly is set to true!")
         else
+          Orakel.FireOutput(btn, "OnButtonUsed")
           btn.TimesUsed.Value = btn.TimesUsed.Value + 1
           if assetLib.Sounds.Button[btn.SoundPressed.Value] ~= nil then
             sndLib.PlaySoundClient("3d", "", Orakel.FindSound(btn.SoundPressed.Value), 0.5, 1, false, 5, btn)
@@ -39,7 +40,9 @@ Entity.Inputs = {
   end;
  }
 
-
+Entity.Outputs = {
+  "OnButtonUsed";
+}
 
 Entity.Kill = function(ent)
 	Entity.Status = false

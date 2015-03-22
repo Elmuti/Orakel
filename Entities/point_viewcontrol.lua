@@ -29,7 +29,7 @@ Entity.Update = function(ent)
       camLib.TweenCamera(oldCf, oldFoc, ent.CFrame.CFrame, ent.Focus.CFrame, 2, ent.Tween.Value)
     else
       local cam = workspace.CurrentCamera
-      if cam.CameraType ~= Enum.CameraType.Scriptable then
+      if cam.CameraType == Enum.CameraType.Scriptable then
         camLib.SetCameraDefault(ent.Tween.Value, 2)
       end
     end
