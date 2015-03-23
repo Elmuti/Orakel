@@ -174,6 +174,7 @@ end
 
 --Fire input "inp" of entity "ent" with parameters "..."
 Module.FireInput = function(ent, inp, ...)
+  warn(Module.Configuration.PrintHeader.."Firing input '"..inp.."' of '"..tostring(ent).."'")
   local ex = ent:FindFirstChild(inp, true)
   if ex then
     if ex.ClassName == "BindableEvent" then
@@ -186,6 +187,7 @@ end
 
 --Fire output "inp" of entity "ent" with parameters "..."
 Module.FireOutput = function(ent, out, ...)
+  warn(Module.Configuration.PrintHeader.."Firing output '"..out.."' of '"..tostring(ent).."'")
   local ex = ent:FindFirstChild(out, true)
   if ex then
     if ex.ClassName == "BindableEvent" then

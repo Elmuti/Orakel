@@ -16,9 +16,7 @@ local redOverlay = "rbxassetid://220186892"
 local blueOverlay = "rbxassetid://220198902"
 local tweening = false
 
-function ToggleLoadingDialog(levelname, image)
-  hud.LoadingFrame.ImageLabel.Image = image or ("")
-  hud.LoadingFrame.TextLabel.Text = 'Loading "'..(levelname or 'nil')..'", Please Wait...'
+function ToggleLoadingDialog()
   hud.LoadingFrame.Visible = not hud.LoadingFrame.Visible
 end
 
