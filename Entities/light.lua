@@ -33,10 +33,11 @@ Entity.Update = function(ent)
         local br = sl.Brightness
         local app = ent.Appearance.Value
         local len = app:len()
+        local int = ltLib.UpdateInterval
         if len > 1 then
           while true do
             for c = 1, len do
-              local nbr, int = ltLib.BrightFromChar(br, app:sub(c,c))
+              local nbr = ltLib.BrightFromChar(app:sub(c,c))
               sl.Brightness = nbr
               wait(int)
             end

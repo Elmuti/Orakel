@@ -1,3 +1,4 @@
+local Orakel = require(game.ReplicatedStorage.Orakel.Main)
 local sndLib = {}
 local player = game.Players.LocalPlayer
 local pgui = player.PlayerGui
@@ -42,10 +43,17 @@ function sndLib.PlaySoundClient(stype, name, id, vol, ptc, looped, len, v3)
 	--v3: Vector3
 	if stype == "global" then
 		local s = sndLib.CreateSound(name, id, vol, ptc, looped)
-		s.Parent = pgui.AmbientSounds
+		if name == "SoundScape" then
+		  s.Parent = pgui.AmbientSounds
+		elseif name == "Music" then
+		  s.Parent = pgui.Music
+		else
+		  s.Parent = pgui.Sounds
+	  end
 		s:Play()
 		return s
 	elseif stype == "3d" then
+	  print("playing "..tostring(stype), tostring(name), tostring(len), tostring(v3))
 		local c
 		if not v3:IsA("BasePart") then
 			c = Instance.new("Part", workspace)
@@ -64,54 +72,21 @@ function sndLib.PlaySoundClient(stype, name, id, vol, ptc, looped, len, v3)
 		s:Play()
 		if c:IsA("BasePart") then
 			if len > -1 then
-				game.Debris:AddItem(s, len)
+				Orakel.RemoveItem(s, len)
 			end
 		else
 			if len > -1 then
-				game.Debris:AddItem(c, len)
+				Orakel.RemoveItem(c, len)
 			end
 		end
 		return s
 	end
 end
 
+
 function sndLib.PlaySoundClientAsync(stype, name, id, vol, ptc, looped, len, v3)
 	spawn(function()
-		--stype:  "global", "3d"
-		--id: assetID
-		--vol: Volume 0-1
-		--ptc: Pitch 0-1
-		--len: Length in seconds
-		--v3: Vector3
-		if stype == "global" then
-			local s = sndLib.CreateSound(name, id, vol, ptc, looped)
-			s.Parent = pgui.AmbientSounds
-			s:Play()
-			return s
-		elseif stype == "3d" then
-			local c
-			if not v3:IsA("BasePart") then
-				c = Instance.new("Part", workspace)
-				c.Name = "ambient_generic"
-				c.Transparency = 1
-				c.formFactor = "Custom"
-				c.Size = Vector3.new(0.2,0.2,0.2)
-				c.CanCollide = false
-				c.Anchored = true
-				c.CFrame = CFrame.new(v3.x, v3.y, v3.z)
-			else
-				c = v3
-			end
-			local s = sndLib.CreateSound(name, id, vol, ptc, looped)
-			s.Parent = c
-			s:Play()
-			if c:IsA("BasePart") then
-				game.Debris:AddItem(s, len)
-			else
-				game.Debris:AddItem(c, len)
-			end
-			return s
-		end
+		sndLib.PlaySoundClient(stype, name, id, vol, ptc, looped, len, v3)
 	end)
 end
 

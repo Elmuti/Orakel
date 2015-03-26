@@ -104,7 +104,7 @@ local function initEntity(ent, sc)
       newInp.Event:connect(func)
     end
   else
-    warn(Module.Configuration.WarnHeader.."Entity '"..tostring(ent).."' has no inputs defined!!")
+    --warn(Module.Configuration.WarnHeader.."Entity '"..tostring(ent).."' has no inputs defined!!")
   end
   
   if outputs ~= nil then
@@ -112,7 +112,7 @@ local function initEntity(ent, sc)
       Module.InitOutput(ent, output)
     end
   else
-    warn(Module.Configuration.WarnHeader.."Entity '"..tostring(ent).."' has no outputs defined!!")
+    --warn(Module.Configuration.WarnHeader.."Entity '"..tostring(ent).."' has no outputs defined!!")
   end
   
   if defOuts ~= nil then
@@ -174,7 +174,7 @@ end
 
 --Fire input "inp" of entity "ent" with parameters "..."
 Module.FireInput = function(ent, inp, ...)
-  warn(Module.Configuration.PrintHeader.."Firing input '"..inp.."' of '"..tostring(ent).."'")
+  --warn(Module.Configuration.PrintHeader.."Firing input '"..inp.."' of '"..tostring(ent).."'")
   local ex = ent:FindFirstChild(inp, true)
   if ex then
     if ex.ClassName == "BindableEvent" then
@@ -187,7 +187,7 @@ end
 
 --Fire output "inp" of entity "ent" with parameters "..."
 Module.FireOutput = function(ent, out, ...)
-  warn(Module.Configuration.PrintHeader.."Firing output '"..out.."' of '"..tostring(ent).."'")
+  --warn(Module.Configuration.PrintHeader.."Firing output '"..out.."' of '"..tostring(ent).."'")
   local ex = ent:FindFirstChild(out, true)
   if ex then
     if ex.ClassName == "BindableEvent" then

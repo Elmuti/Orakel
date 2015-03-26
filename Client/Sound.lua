@@ -98,7 +98,7 @@ function updateSoundscape()
 				for name, props in pairs(main) do
 					if not pgui.AmbientSounds:FindFirstChild(name) then
 						coroutine.resume(coroutine.create(function()
-							local s = playSoundClient("global", name, props[1], 0, props[3], true)
+							local s = playSoundClient("global", "SoundScape", props[1], 0, props[3], true)
 							fadeSound(s, props[2], 2)
 						end))
 					end
@@ -112,7 +112,7 @@ function updateSoundscape()
 							if currentScape ~= oldScape then
 								break
 							end
-							playSoundClient("global", name, props[2], props[3], props[4], false)
+							playSoundClient("global", "SoundScape", props[2], props[3], props[4], false)
 						end
 					end))
 				end

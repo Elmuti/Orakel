@@ -54,7 +54,7 @@ Entity.KeyValues = {
 
 Entity.Inputs = {}
 
-
+Entity.Outputs = {"OnTrigger", "OnEndTrigger"}
 
 
 Entity.Update = function(trigger)
@@ -77,7 +77,6 @@ Entity.Update = function(trigger)
 			else
 				if IsPartInRegion(torso, Region) then
 					TimesUsed.Value = TimesUsed.Value + 1
-					
 					if StayInArea.Value then
 						Success = false
 						local t = 0
@@ -96,7 +95,7 @@ Entity.Update = function(trigger)
 					end
 					
 					if Success then
-						print("Trigger activated")
+						Orakel.FireOutput(trigger, "OnTrigger")
 						Orakel.RunScript(Script.Value)
 						
 						if trigger.TargetEntity.Value ~= "" and trigger.TargetInput.Value ~= "" then
