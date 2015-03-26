@@ -1,15 +1,15 @@
---[[
-	// FileName: ShiftLockController
-	// Written by: jmargh
-	// Version 1.1
-	// Description: Manages the state of shift lock mode
 
-	// Required by:
-		RootCamera
+	-- // FileName: ShiftLockController
+	-- // Written by: jmargh
+	-- // Version 1.1
+	-- // Description: Manages the state of shift lock mode
 
-	// Note: ContextActionService sinks keys, so until we allow binding to ContextActionService without sinking
-	// keys, this module will use UserInputService.
---]]
+	-- // Required by:
+		-- RootCamera
+
+	-- // Note: ContextActionService sinks keys, so until we allow binding to ContextActionService without sinking
+	-- // keys, this module will use UserInputService.
+
 local ContextActionService = game:GetService('ContextActionService')
 local Players = game:GetService('Players')
 local StarterPlayer = game:GetService('StarterPlayer')
@@ -20,7 +20,7 @@ local GameSettings = Settings.GameSettings
 
 local ShiftLockController = {}
 
---[[ Script Variables ]]--
+-- Script Variables --
 while not Players.LocalPlayer do
 	wait()
 end
@@ -47,12 +47,12 @@ if not UserInputService.TouchEnabled then	-- TODO: Remove when safe on mobile
 	IsShiftLockMode = isShiftLockMode()
 end
 
---[[ Constants ]]--
+--  Constants --
 local SHIFT_LOCK_OFF = 'rbxasset://textures/ui/mouseLock_off.png'
 local SHIFT_LOCK_ON = 'rbxasset://textures/ui/mouseLock_on.png'
 local SHIFT_LOCK_CURSOR = 'rbxasset://textures/MouseLockedCursor.png'
 
---[[ Local Functions ]]--
+-- Local Functions --
 local function onShiftLockToggled()
 	IsShiftLocked = not IsShiftLocked
 	if IsShiftLocked then
@@ -97,7 +97,7 @@ local function initialize()
 	ScreenGui.Parent = PlayerGui
 end
 
---[[ Public API ]]--
+-- Public API --
 function ShiftLockController:IsShiftLocked()
 	return IsShiftLockMode and IsShiftLocked
 end
@@ -106,7 +106,7 @@ function ShiftLockController:SetIsInFirstPerson(isInFirstPerson)
 	IsInFirstPerson = isInFirstPerson
 end
 
---[[ Input/Settings Changed Events ]]--
+-- Input/Settings Changed Events --
 local mouseLockSwitchFunc = function(actionName, inputState, inputObject)
 --	if IsShiftLockMode and inputState == Enum.UserInputState.Begin then
 --		onShiftLockToggled()
@@ -203,7 +203,7 @@ LocalPlayer.CharacterAdded:connect(function(character)
 	end
 end)
 
---[[ Initialization ]]--
+-- Initialization --
  -- TODO: Remove when safe! ContextActionService crashes touch clients with tupele is 2 or more
 if not UserInputService.TouchEnabled then
 	initialize()

@@ -1,24 +1,24 @@
---[[
-	// FileName: ControlScript.lua
-	// Version 1.0
-	// Written by: jmargh
-	// Description: Manages in game controls for both touch and keyboard/mouse devices.
-	
-	// This script will be inserted into PlayerScripts under each player by default. If you want to
-	// create your own custom controls or modify these controls, you must place a script with this
-	// name, ControlScript, under StarterPlayer -> PlayerScripts.
-	
-	// Required Modules:
-		ClickToMove
-		DPad
-		KeyboardMovement
-		Thumbpad
-		Thumbstick
-		TouchJump
-		MasterControl
---]]
 
---[[ Services ]]--
+	-- // FileName: ControlScript.lua
+	-- // Version 1.0
+	-- // Written by: jmargh
+	-- // Description: Manages in game controls for both touch and keyboard/mouse devices.
+	
+	-- // This script will be inserted into PlayerScripts under each player by default. If you want to
+	-- // create your own custom controls or modify these controls, you must place a script with this
+	-- // name, ControlScript, under StarterPlayer -> PlayerScripts.
+	
+	-- // Required Modules:
+		-- ClickToMove
+		-- DPad
+		-- KeyboardMovement
+		-- Thumbpad
+		-- Thumbstick
+		-- TouchJump
+		-- MasterControl
+
+
+-- SERVICES
 local ContextActionService = game:GetService('ContextActionService')
 local Players = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
@@ -31,7 +31,7 @@ while not UserInputService.KeyboardEnabled and not UserInputService.TouchEnabled
 	wait()
 end
 
---[[ Script Variables ]]--
+-- SCRIPT VARIABLES
 while not Players.LocalPlayer do
 	wait()
 end
@@ -50,7 +50,7 @@ local BindableEvent_OnFailStateChanged = nil
 local isJumpEnabled = false
 
 
---[[ Modules ]]--
+--MODULES
 local CurrentControlModule = nil
 local ClickToMoveTouchControls = nil
 local ControlModules = {}
@@ -70,7 +70,7 @@ end
 ControlModules.Gamepad = require(script.MasterControl:WaitForChild('Gamepad'))
 
 
---[[ Initialization/Setup ]]--
+-- INITIALIZATION / SETUP
 local function createTouchGuiContainer()
 	if TouchGui then TouchGui:Destroy() end
 	
@@ -91,7 +91,7 @@ local function createTouchGuiContainer()
 	TouchJumpModule:Create(TouchControlFrame)
 end
 
---[[ Local Functions ]]--
+--LOCAL FUNCTIONS
 local function setJumpModule(isEnabled)
 	if not isEnabled then
 		TouchJumpModule:Disable()
@@ -117,7 +117,7 @@ local function setClickToMove()
 	end
 end
 
---[[ Controls State Management ]]--
+--CONTROLS STATE MANAGEMENT
 local onControlsChanged = nil
 if IsTouchDevice then
 	createTouchGuiContainer()
@@ -196,7 +196,7 @@ elseif UserInputService.KeyboardEnabled then
 	end
 end
 
---[[ Settings Changed Connections ]]--
+--SETTINGS CHANGED CONNECTIONS
 LocalPlayer.Changed:connect(function(property)
 	if IsTouchDevice and property == 'DevTouchMovementMode' then
 		DevMovementMode = LocalPlayer.DevTouchMovementMode
@@ -223,7 +223,7 @@ GameSettings.Changed:connect(function(property)
 	end
 end)
 
---[[ Touch Events ]]--
+--TOUCH EVENTS
 if IsTouchDevice then
 	-- On touch devices we need to recreate the guis on character load.
 	LocalPlayer.CharacterAdded:connect(function(character)

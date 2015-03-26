@@ -1,9 +1,9 @@
---[[
-	// FileName: Thumbpad
-	// Version 1.0
-	// Written by: jmargh
-	// Description: Implements thumbpad controls for touch devices
---]]
+
+	-- // FileName: Thumbpad
+	-- // Version 1.0
+	-- // Written by: jmargh
+	-- // Description: Implements thumbpad controls for touch devices
+
 
 local Players = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
@@ -12,7 +12,7 @@ local Thumbpad = {}
 
 local MasterControl = require(script.Parent)
 
---[[ Script Variables ]]--
+--SCRIPT VARS
 while not Players.LocalPlayer do
 	wait()
 end
@@ -24,11 +24,11 @@ local OnTouchChangedCn = nil
 local OnTouchEndedCn = nil
 local currentMoveVector = Vector3.new(0,0,0)
 
---[[ Constants ]]--
+--CONSTS
 local DPAD_SHEET = "rbxasset://textures/ui/DPadSheet.png"
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
 
---[[ Local Functions ]]--
+--LOCAL FUNCS
 local function createArrowLabel(name, parent, position, size, rectOffset, rectSize)
 	local image = Instance.new('ImageLabel')
 	image.Name = name
@@ -44,7 +44,7 @@ local function createArrowLabel(name, parent, position, size, rectOffset, rectSi
 	return image
 end
 
---[[ Public API ]]--
+--PUBLIC API
 function Thumbpad:Enable()
 	ThumbpadFrame.Visible = true
 end

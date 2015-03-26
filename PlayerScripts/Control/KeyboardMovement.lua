@@ -1,9 +1,9 @@
---[[
-	// FileName: ComputerMovementKeyboardMovement
-	// Version 1.0
-	// Written by: jeditkacheff/jmargh
-	// Description: Implements movement controls for keyboard devices
---]]
+
+	-- // FileName: ComputerMovementKeyboardMovement
+	-- // Version 1.0
+	-- // Written by: jeditkacheff/jmargh
+	-- // Description: Implements movement controls for keyboard devices
+
 local Players = game:GetService('Players')
 local RunService = game:GetService('RunService')
 local UserInputService = game:GetService('UserInputService')
@@ -25,7 +25,7 @@ local WindowFocusReleasedCn = nil
 local MasterControl = require(script.Parent)
 local currentMoveVector = Vector3.new(0,0,0)
 
---[[ Local Functions ]]--
+--LOCAL FUNCS
 local function getHumanoid()
 	local character = LocalPlayer and LocalPlayer.Character
 	if character then
@@ -43,7 +43,7 @@ local function getHumanoid()
 	end
 end
 
---[[ Public API ]]--
+--PUBLIC API
 function KeyboardMovement:Enable()
 	if not UserInputService.KeyboardEnabled then
 		return

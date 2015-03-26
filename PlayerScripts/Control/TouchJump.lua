@@ -1,9 +1,9 @@
---[[
-	// FileName: TouchJump
-	// Version 1.0
-	// Written by: jmargh
-	// Description: Implements jump controls for touch devices. Use with Thumbstick and Thumbpad
---]]
+
+	-- // FileName: TouchJump
+	-- // Version 1.0
+	-- // Written by: jmargh
+	-- // Description: Implements jump controls for touch devices. Use with Thumbstick and Thumbpad
+
 
 local Players = game:GetService('Players')
 
@@ -11,7 +11,7 @@ local TouchJump = {}
 
 local MasterControl = require(script.Parent)
 
---[[ Script Variables ]]--
+--SCRIPT VARS
 while not Players.LocalPlayer do
 	wait()
 end
@@ -19,10 +19,10 @@ local LocalPlayer = Players.LocalPlayer
 local JumpButton = nil
 local OnInputEnded = nil		-- defined in Create()
 
---[[ Constants ]]--
+--CONSTS
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
 
---[[ Public API ]]--
+--PUBLIC API
 function TouchJump:Enable()
 	JumpButton.Visible = true
 end

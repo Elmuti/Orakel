@@ -1,8 +1,8 @@
---[[
-	// FileName: Gamepad
-	// Written by: jeditkacheff
-	// Description: Implements movement controls for gamepad devices (XBox, PS4, MFi, etc.)
---]]
+
+	-- // FileName: Gamepad
+	-- // Written by: jeditkacheff
+	-- // Description: Implements movement controls for gamepad devices (XBox, PS4, MFi, etc.)
+
 local Gamepad = {}
 
 local MasterControl = require(script.Parent)
@@ -21,10 +21,10 @@ while not Players.LocalPlayer do
 end
 local LocalPlayer = Players.LocalPlayer
 
---[[ Constants ]]--
+--CONSTS
 local thumbstickDeadzone = 0.14
 
---[[ Public API ]]--
+--PUBLIC API
 function Gamepad:Enable()
 	local forwardValue  = 0
 	local backwardValue = 0

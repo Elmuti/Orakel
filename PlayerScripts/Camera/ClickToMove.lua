@@ -808,7 +808,7 @@ local function Pather(character, point)
 								end
 								--CharacterControl:SetTorsoLookPoint(point)
 							end
-							---[[
+							--###################################################
 							if (humanoid.Torso.CFrame.p - point).magnitude > 9 then
 								spawn(function()
 									while yielding and this.Cancelled == false do
@@ -829,7 +829,7 @@ local function Pather(character, point)
 									end
 								end)
 							end
-							--]]
+							--###################################################
 							local didReach = this:YieldUntilPointReached(character, point, approxTime * 3 + 1)
 
 							yielding = false

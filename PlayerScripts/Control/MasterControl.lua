@@ -1,11 +1,11 @@
---[[
-	// FileName: MasterControl
-	// Version 1.0
-	// Written by: jeditkacheff
-	// Description: All character control scripts go thru this script, this script makes sure all actions are performed
---]]
 
---[[ Local Variables ]]--
+	-- // FileName: MasterControl
+	-- // Version 1.0
+	-- // Written by: jeditkacheff
+	-- // Description: All character control scripts go thru this script, this script makes sure all actions are performed
+
+
+--LOCAL VARS
 local MasterControl = {}
 
 local Players = game:GetService('Players')
@@ -23,7 +23,7 @@ local isJumping = false
 local moveValue = Vector3.new(0,0,0)
 
 
---[[ Local Functions ]]--
+--LOCAL FUNCS
 local function getHumanoid()
 	local character = LocalPlayer and LocalPlayer.Character
 	if character then
@@ -41,7 +41,7 @@ local function getHumanoid()
 	end
 end
 
---[[ Public API ]]--
+--PUBLIC API
 function MasterControl:Init()
 	
 	local renderStepFunc = function()

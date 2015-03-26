@@ -1,16 +1,16 @@
---[[
-	// FileName: Thumbstick
-	// Version 1.0
-	// Written by: jmargh
-	// Description: Implements thumbstick controls for touch devices
---]]
+
+	-- // FileName: Thumbstick
+	-- // Version 1.0
+	-- // Written by: jmargh
+	-- // Description: Implements thumbstick controls for touch devices
+
 local Players = game:GetService('Players')
 local UserInputService = game:GetService('UserInputService')
 local MasterControl = require(script.Parent)
 
 local Thumbstick = {}
 
---[[ Script Variables ]]--
+--SCRIPT VARS
 while not Players.LocalPlayer do
 	wait()
 end
@@ -23,10 +23,10 @@ local OnTouchMovedCn = nil
 local OnTouchEndedCn = nil
 local currentMoveVector = Vector3.new(0,0,0)
 
---[[ Constants ]]--
+--CONSTS
 local TOUCH_CONTROL_SHEET = "rbxasset://textures/ui/TouchControlsSheet.png"
 
---[[ Public API ]]--
+--PUBLIC API
 function Thumbstick:Enable()
 	ThumbstickFrame.Visible = true
 end

@@ -1,9 +1,9 @@
---[[
-	// FileName: DPad
-	// Version 1.0
-	// Written by: jmargh
-	// Description: Implements DPad controls for touch devices
---]]
+
+	-- // FileName: DPad
+	-- // Version 1.0
+	-- // Written by: jmargh
+	-- // Description: Implements DPad controls for touch devices
+
 
 local Players = game:GetService('Players')
 
@@ -11,7 +11,7 @@ local DPad = {}
 
 local MasterControl = require(script.Parent)
 
---[[ Script Variables ]]--
+--VARS
 while not Players.LocalPlayer do
 	wait()
 end
@@ -20,7 +20,7 @@ local DPadFrame = nil
 local TouchObject = nil
 local OnInputEnded = nil		-- defined in Create()
 
---[[ Constants ]]--
+--CONSTS
 local DPAD_SHEET = "rbxasset://textures/ui/DPadSheet.png"
 local COMPASS_DIR = {
 	Vector3.new(1, 0, 0),			-- E
@@ -33,12 +33,12 @@ local COMPASS_DIR = {
 	Vector3.new(1, 0, -1).unit,		-- NE
 }
 
---[[ lua Function Cache ]]--
+
 local ATAN2 = math.atan2
 local FLOOR = math.floor
 local PI = math.pi
 
---[[ Local Functions ]]--
+--LOCAL FUNCS
 local function createArrowLabel(name, position, size, rectOffset, rectSize)
 	local image = Instance.new('ImageLabel')
 	image.Name = name
@@ -57,7 +57,7 @@ local function getCenterPosition()
 	return Vector2.new(DPadFrame.AbsolutePosition.x + DPadFrame.AbsoluteSize.x/2, DPadFrame.AbsolutePosition.y + DPadFrame.AbsoluteSize.y/2)
 end
 
---[[ Public API ]]--
+--PUBLIC API
 function DPad:Enable()
 	DPadFrame.Visible = true
 end
