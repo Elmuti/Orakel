@@ -5,7 +5,7 @@ local run = game:GetService("RunService")
 
 
 Module.Configuration = {
-  Version = "version 0.8.9.0";
+  Version = "version 0.8.9.2";
   SoloTestMode = game:FindService("NetworkServer") == nil and game:FindService("NetworkClient") == nil;
   PrintHeader = "Orakel |  ";
   WarnHeader = "Orakel Warning |  ";
@@ -98,6 +98,17 @@ local function initEntity(ent, sc)
   end
   print("initializing "..tostring(ent).." ...")
   
+  if entCode.Inputs == nil then
+    entCode.Inputs = {}
+    inputs = entCode.Inputs
+  end
+  
+  for num = 1, 4 do
+    entCode.Inputs["FireUser"..num] = function(ent)
+      Module.FireOutput(ent, "OnUser"..num)
+    end
+  end
+  
   if inputs ~= nil then
     for input, func in pairs(inputs) do
       local newInp = Module.InitInput(ent, input)
@@ -114,6 +125,7 @@ local function initEntity(ent, sc)
   else
     --warn(Module.Configuration.WarnHeader.."Entity '"..tostring(ent).."' has no outputs defined!!")
   end
+  
   
   if defOuts ~= nil then
     for _, out in pairs(defOuts:GetChildren()) do

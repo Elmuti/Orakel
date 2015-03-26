@@ -25,7 +25,6 @@ Entity.Inputs = {
     if ent.Global.Value then
       stype = "global"
     end
-    print("PLAYING !!!!!!! :D")
     sndLib.PlaySoundClient(
       stype, 
       "snd_ambient_generic", 

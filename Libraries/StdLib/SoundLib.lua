@@ -53,7 +53,6 @@ function sndLib.PlaySoundClient(stype, name, id, vol, ptc, looped, len, v3)
 		s:Play()
 		return s
 	elseif stype == "3d" then
-	  print("playing "..tostring(stype), tostring(name), tostring(len), tostring(v3))
 		local c
 		if not v3:IsA("BasePart") then
 			c = Instance.new("Part", workspace)

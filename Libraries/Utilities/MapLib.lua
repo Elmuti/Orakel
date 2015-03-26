@@ -53,7 +53,7 @@ function recInvis(dir)
       local edTextures = editorTextures(obj)
       for edEnt, edtx in pairs(edTextures) do
         if edtx == obj.Texture then
-          print("Entity texture found: "..obj:GetFullName())
+          --print("Entity texture found: "..obj:GetFullName())
           obj:Destroy()
         end
       end

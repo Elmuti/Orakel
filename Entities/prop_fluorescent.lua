@@ -17,17 +17,19 @@ Entity.KeyValues = {
 Entity.Inputs = {}
 
 Entity.Update = function(ent)
-  while wait(1/20) do
-    if ent.Fluorescent.Value then
-      while true do
-        wait(math.random(0.1, 3))
-        local sl = ent.light_spot.SurfaceLight
-        local pl = ent.light.PointLight
-        pl.Enabled = not pl.Enabled
-        sl.Enabled = not sl.Enabled
-      end
-    end
-  end
+  warn(Orakel.Configuration.WarnHeader.."prop_fluorescent is obsolete! Use light, light_spot or light_surface instead!")
+  
+--  while wait(1/20) do
+--    if ent.Fluorescent.Value then
+--      while true do
+--        wait(math.random(0.1, 3))
+--        local sl = ent.light_spot.SurfaceLight
+--        local pl = ent.light.PointLight
+--        pl.Enabled = not pl.Enabled
+--        sl.Enabled = not sl.Enabled
+--      end
+--    end
+--  end
 end
 
 

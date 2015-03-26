@@ -11,6 +11,16 @@ Everything on that matter can be found on our [Trello page](https://trello.com/b
 
 ## Update / Change Log
 
+#### Version 0.8.9.2
+
+- New input "FireUser1" on all entities
+- New input "FireUser2" on all entities
+- New input "FireUser3" on all entities
+- New input "FireUser4" on all entities
+- New output "OnUser1" on all entities
+- New output "OnUser2" on all entities
+- New output "OnUser3" on all entities
+- New output "OnUser4" on all entities
 
 #### Version 0.8.9.0
 

@@ -16,9 +16,15 @@ Entity.KeyValues = {
 Entity.Inputs = {
   ["Toggle"] = function(ent)
     ent.Enabled.Value = not ent.Enabled.Value
+    if ent.Enabled.Value then
+      Orakel.FireOutput(ent, "OnEnabled")
+    else
+      Orakel.FireOutput(ent, "OnDisabled")
+    end
   end;
 }
 
+Entity.Outputs = {"OnDisabled", "OnEnabled"}
 
 Entity.Update = function(ent)
   while wait(1/20) do
