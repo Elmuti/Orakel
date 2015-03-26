@@ -12,6 +12,17 @@ Everything on that matter can be found on our [Trello page](https://trello.com/b
 ## Update / Change Log
 
 
+#### Version 0.8.9.0
+
+- Added Camera / Control scripts
+- New entity "ambient_generic"
+- New entity "light"
+- New entity "light_surface"
+- Light behaviour system based on strings
+- Fixed SoundLib.PlaySoundClient
+- Fixed SoundLib.PlaySoundClientAsync
+- Fixed SoundLib.PlaySoundClientEvent
+
 #### Version 0.8.8.9
 
 - Entities now have both inputs and outputs.

@@ -30,7 +30,7 @@ function sndLib.PlayMusicClient(name, id, vol, ptc, looped, len)
 end
 
 function sndLib.PlaySoundClientEvent(stype, name, id, vol, ptc, looped, len, v3)
-	sndLib.PlaySoundClient(stype, name, id, vol, ptc, looped, len, v3)
+	return sndLib.PlaySoundClient(stype, name, id, vol, ptc, looped, len, v3)
 end
 
 
@@ -85,9 +85,11 @@ end
 
 
 function sndLib.PlaySoundClientAsync(stype, name, id, vol, ptc, looped, len, v3)
+  local s
 	spawn(function()
-		sndLib.PlaySoundClient(stype, name, id, vol, ptc, looped, len, v3)
+		s = sndLib.PlaySoundClient(stype, name, id, vol, ptc, looped, len, v3)
 	end)
+	return s
 end
 
 function sndLib.StopSoundClient(sndname)
