@@ -5,7 +5,7 @@ local run = game:GetService("RunService")
 
 
 Module.Configuration = {
-  Version = "version 0.8.9.2";
+  Version = "version 0.8.9.3";
   SoloTestMode = game:FindService("NetworkServer") == nil and game:FindService("NetworkClient") == nil;
   PrintHeader = "Orakel |  ";
   WarnHeader = "Orakel Warning |  ";
@@ -85,24 +85,28 @@ local function initEntity(ent, sc)
   local outputs = entCode.Outputs
   local defOuts = ent:FindFirstChild("Outputs")
   local update = entCode.Update
-
-  if update ~= nil then
-    local s,e = pcall(function()
-      spawn(function()
-        update(ent)
-      end)
-    end)
-    if not s then
-      warn(Module.Configuration.PrintHeader.."INTERNAL ENTITY ERROR: "..e)
-    end
+  local load = entCode.Load
+  
+  if load ~= nil then
+    load()
   end
-  print("initializing "..tostring(ent).." ...")
+
+  --print("initializing "..tostring(ent).." ...")
   
   if entCode.Inputs == nil then
     entCode.Inputs = {}
     inputs = entCode.Inputs
   end
   
+  if entCode.Outputs == nil then
+    entCode.Outputs = {}
+    outputs = entCode.Outputs
+  end
+  
+  for num = 1, 4 do
+    entCode.Outputs[#entCode.Outputs + 1] = "OnUser"..num
+  end
+
   for num = 1, 4 do
     entCode.Inputs["FireUser"..num] = function(ent)
       Module.FireOutput(ent, "OnUser"..num)
@@ -152,6 +156,18 @@ local function initEntity(ent, sc)
         end
       end)
     end
+    
+    if update ~= nil then
+      local s,e = pcall(function()
+        spawn(function()
+          update(ent)
+        end)
+      end)
+      if not s then
+        --Error in the Entity code
+        warn(Module.Configuration.PrintHeader.."INTERNAL ENTITY ERROR: "..e)
+      end
+    end
   end
 
   game.ReplicatedStorage.Events.MapChange.Event:connect(entCode.Kill)
@@ -159,15 +175,18 @@ end
 
 --Initializes every entity in "map"
 Module.InitEntities = function(map)
+  local numEnts = 0
   local ents = map.Entities:GetChildren()
   local eScripts = game.ReplicatedStorage.Orakel.Entities:GetChildren()
   for _, ent in pairs(ents) do
     for _, es in pairs(eScripts) do
       if es.Name == ent.Name then
+        numEnts = numEnts + 1
         initEntity(ent, es)
       end
     end
   end
+  print("Initialized "..numEnts.." entities")
 end
 
 Module.InitOutput = function(ent, name)
@@ -224,52 +243,6 @@ Module.SetKeyValue = function(ent, val, newVal)
   local ex = ent:FindFirstChild(val, true)
   if ex then
     ex.Value = newVal
-  end
-end
-
-
---TODO: MOVE THIS TO A LIBRARY
-Module.TweenModel = function(model, c0, c1, t0, callBack)
-  print(Module.Configuration.PrintHeader.."Tweening "..tostring(model).."...")
-  local CFrameInterp = Module.LoadModule("CFrameInterp")
-  local children = Module.GetChildrenRecursive(model)
-  local now = tick()
-  local angle, interpFunc = CFrameInterp(c0, c1)
-  local steps = t0 * 60
-  local lastPos = model.PrimaryPart.Position
-  local lastTick = tick()
-
-  for f = 0, steps, 1 / steps do
-    if f >= 1 then
-      break
-    end
-    local cf = interpFunc(f)
-    model:SetPrimaryPartCFrame(cf)
-    for i = 1, #children do
-      if children[i]:IsA("BasePart") then
-        local v = (model.PrimaryPart.Position - lastPos) / (lastTick - tick())
-        children[i].Velocity = Vector3.new(-v.x, -v.y, -v.z)
-      end
-    end
-    
-    lastPos = model.PrimaryPart.Position
-    lastTick = tick()
-    Module.WaitRender()
-  end
-  
-  for _, p in pairs(children) do
-    if p:IsA("BasePart") then
-      p.Velocity = Vector3.new(0, 0, 0)
-    end
-  end
-  
-  model:SetPrimaryPartCFrame(c1)
-  print(Module.Configuration.PrintHeader..tick() - now.." time taken to tween "..tostring(model)..", Set Duration was "..t0)
-  
-  if callBack ~= nil then
-    if type(callBack) == "function" then
-      callBack()
-    end
   end
 end
 

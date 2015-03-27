@@ -15,7 +15,6 @@ Entity.KeyValues = {
 Entity.Inputs = {}
 
 
-
 Entity.Kill = function()
   Entity.Status = false
 end

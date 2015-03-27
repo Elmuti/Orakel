@@ -17,7 +17,6 @@ Entity.KeyValues = {
   ["Script"] = "";
   ["SoundPressed"] = "";
   ["TimesUsed"] = 0;
-  ["Clicked"] = false;
 }
 
 Entity.Inputs = {
@@ -32,7 +31,7 @@ Entity.Inputs = {
             sndLib.PlaySoundClient("3d", "", Orakel.FindSound(btn.SoundPressed.Value), 0.5, 1, false, 5, btn)
             Orakel.RunScript(btn.Script.Value)
           else
-            warn(Orakel.Configuration.WarnHeader..ent.EntityName.Value.." has invalid SoundId!")
+            --warn(Orakel.Configuration.WarnHeader..ent.EntityName.Value.." has invalid SoundId!")
           end
           btn.Clicked.Value = false
         end

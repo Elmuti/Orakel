@@ -10,6 +10,7 @@ Entity.EditorTexture = ""
 Entity.KeyValues = {
   ["EntityName"] = "";
   ["Appearance"] = "";
+  ["EntityToLookAt"] = "";
 }
 
 

@@ -56,6 +56,14 @@ Entity.Inputs = {}
 
 Entity.Outputs = {"OnTrigger", "OnEndTrigger"}
 
+Entity.Load = function(ent)
+  for _, c in pairs(ent:GetChildren()) do
+    if c.ClassName == "Texture" then
+      c:Destroy()
+    end
+  end
+end
+
 
 Entity.Update = function(trigger)
 	local Success = true
@@ -111,7 +119,7 @@ Entity.Update = function(trigger)
 						if Orakel.FindSound(Sound.Value) ~= nil then
 							sndLib.PlaySoundClient("3d", "", Orakel.FindSound(Sound.Value), 0.5, 1, false, 5, trigger)
 						else
-							warn(Orakel.Configuration.WarnHeader.."Trigger has invalid SoundId!")
+							--warn(Orakel.Configuration.WarnHeader.."Trigger has invalid SoundId!")
 						end
 					end
 				end

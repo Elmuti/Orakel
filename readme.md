@@ -11,6 +11,14 @@ Everything on that matter can be found on our [Trello page](https://trello.com/b
 
 ## Update / Change Log
 
+
+#### Version 0.8.9.3
+- New library "CFrameLib.lua"
+- Moved "Orakel.TweenModel" to Libraries/Utilities/CFrameLib.lua
+- New entity "math_counter" on the works
+- New entity "logic_timer" on the works
+- New entity "logic_auto" on the works
+
 #### Version 0.8.9.2
 
 - New input "FireUser1" on all entities
@@ -44,7 +52,6 @@ Everything on that matter can be found on our [Trello page](https://trello.com/b
 
 - Created a Main Menu
 - New entity "point_viewcontrol"
-
 
 #### Version 0.8.7.2
 

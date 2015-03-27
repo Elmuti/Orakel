@@ -48,6 +48,13 @@ Entity.KeyValues = {
 
 Entity.Inputs = {}
 
+Entity.Load = function(ent)
+  for _, c in pairs(ent:GetChildren()) do
+    if c.ClassName == "Texture" then
+      c:Destroy()
+    end
+  end
+end
 
 Entity.Update = function(trigger)
 	local Enabled = trigger.Enabled
