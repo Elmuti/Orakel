@@ -63,6 +63,7 @@ Module.EntitiesToHide = {
 
 
 --Returns every descendant of "obj"
+--@param obj Object.
 Module.GetChildrenRecursive = function(obj)
   local children = obj:GetChildren()
   local list = {}
@@ -78,6 +79,8 @@ end
 
 
 local function initEntity(ent, sc)
+  --@ent Entity
+  --@sc Module
   local entCode = require(sc)
   
   local kvals = entCode.KeyValues
@@ -88,7 +91,7 @@ local function initEntity(ent, sc)
   local load = entCode.Load
   
   if load ~= nil then
-    load()
+    load(ent)
   end
 
   --print("initializing "..tostring(ent).." ...")

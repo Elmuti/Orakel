@@ -8,6 +8,11 @@ Full documentation for everything and beyond can be found in the [Orakel wiki](h
 
 Everything on that matter can be found on our [Trello page](https://trello.com/b/848sAYmT/orakel)!
 
+## Third party code utilization
+
+Orakel utilizes some third party code, Including [CruxAnimation](https://github.com/wes-BAN/crux-animation),
+and snippets of library code from [Jonathan Holmes](https://github.com/Vorlias) and [Quenty](https://github.com/Quenty).
+
 
 ## Update / Change Log
 

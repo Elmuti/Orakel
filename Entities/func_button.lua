@@ -33,7 +33,6 @@ Entity.Inputs = {
           else
             --warn(Orakel.Configuration.WarnHeader..ent.EntityName.Value.." has invalid SoundId!")
           end
-          btn.Clicked.Value = false
         end
     end
   end;
