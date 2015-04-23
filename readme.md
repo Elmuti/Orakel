@@ -10,7 +10,7 @@ Everything on that matter can be found on our [Trello page](https://trello.com/b
 
 ## Third party code utilization
 
-Orakel utilizes some third party code, Including [CruxAnimation](https://github.com/wes-BAN/crux-animation),
+Orakel utilizes some third party code, Including [CruxAnimation](https://github.com/wes-BAN/crux-animation), The CFrameInterp module made by [Mark Langen](https://github.com/stravant)
 and snippets of library code from [Jonathan Holmes](https://github.com/Vorlias) and [Quenty](https://github.com/Quenty).
 
 
