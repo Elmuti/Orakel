@@ -63,8 +63,13 @@ and snippets of library code from [Jonathan Holmes](https://github.com/Vorlias) 
 
 #### Version 0.8.7.2
 
+- Started changelog
 - Damagetypes and damage handling
 - Model tweening
 - Adopted CruxAnimation
 - Added navigation clips (Brush entity "nav_clip")
 - Defined all entities inside their modules and removed all dependencies outside of those modules
+
+#### Versions below 0.8.7.2
+
+Versions below 0.8.7.2 are sadly not documented anywhere
