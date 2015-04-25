@@ -17,8 +17,8 @@ and snippets of library code from [Jonathan Holmes](https://github.com/Vorlias) 
 ## Update / Change Log
 
 #### Version 0.8.9.5
--New entity "func_dustmotes"
--Started reworking "func_precipitation"
+- New entity "func_dustmotes"
+- Started reworking "func_precipitation"
 
 #### Version 0.8.9.3
 - New library "CFrameLib.lua"
