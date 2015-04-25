@@ -5,7 +5,7 @@ local run = game:GetService("RunService")
 
 
 Module.Configuration = {
-  Version = "version 0.8.9.3";
+  Version = "version 0.8.9.5";
   SoloTestMode = game:FindService("NetworkServer") == nil and game:FindService("NetworkClient") == nil;
   PrintHeader = "Orakel |  ";
   WarnHeader = "Orakel Warning |  ";

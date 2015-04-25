@@ -67,6 +67,18 @@ eng.Gibs = {
 	["grass"] = game.ReplicatedStorage.Orakel.Models.Gibs.gib_grass
 }
 
+eng.ParticleGibs = {
+  
+
+
+}
+
+
+eng.Particles = {
+  ["dustmote_burn"] = "http://www.roblox.com/asset/?id=241751503";
+  ["dustmote"] = "http://www.roblox.com/asset/?id=241559211";
+}
+
 eng.Bloodsplatter = {
 	"http://www.roblox.com/asset/?id=156459226",
 	"http://www.roblox.com/asset/?id=156458157",

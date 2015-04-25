@@ -16,12 +16,15 @@ and snippets of library code from [Jonathan Holmes](https://github.com/Vorlias) 
 
 ## Update / Change Log
 
+#### Version 0.8.9.5
+-New entity "func_dustmotes"
+-Started reworking "func_precipitation"
 
 #### Version 0.8.9.3
 - New library "CFrameLib.lua"
 - Moved "Orakel.TweenModel" to Libraries/Utilities/CFrameLib.lua
-- New entity "math_counter" on the works
-- New entity "logic_timer" on the works
+- New entity "math_counter"
+- New entity "logic_timer"
 - New entity "logic_auto" on the works
 
 #### Version 0.8.9.2
