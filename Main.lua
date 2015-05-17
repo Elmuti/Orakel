@@ -91,7 +91,9 @@ local function initEntity(ent, sc)
   local load = entCode.Load
   
   if load ~= nil then
-    load(ent)
+    spawn(function()
+      load(ent)
+    end)
   end
 
   --print("initializing "..tostring(ent).." ...")
@@ -160,6 +162,8 @@ local function initEntity(ent, sc)
       end)
     end
     
+    entCode.Status = true
+    
     if update ~= nil then
       local s,e = pcall(function()
         spawn(function()
@@ -172,7 +176,6 @@ local function initEntity(ent, sc)
       end
     end
   end
-
   game.ReplicatedStorage.Events.MapChange.Event:connect(entCode.Kill)
 end
 
@@ -198,6 +201,17 @@ Module.InitOutput = function(ent, name)
   be.Parent = ent
   return be
 end
+
+Module.RemoveTextures = function(obj)
+  for _, c in pairs(obj:GetChildren()) do
+    if c.ClassName == "Texture" then
+      c:Destroy()
+    else
+      Module.RemoveTextures(c)
+    end
+  end
+end
+
 
 Module.InitInput = function(ent, name)
   local be = Instance.new("BindableEvent")

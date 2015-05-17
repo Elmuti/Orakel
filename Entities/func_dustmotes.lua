@@ -16,7 +16,8 @@ Entity.KeyValues = {
 
 
 Entity.Update = function(ent)
-  local pe = Instance.new("ParticleEmitter")
+  print("creating particle emitter")
+  local pe = Instance.new("ParticleEmitter", ent)
   pe.Transparency = 1
   pe.Lifetime = 20
   pe.Speed = NumberRange.new(0, -0.1)
